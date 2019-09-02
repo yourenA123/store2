@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helper.store.dao.WantBuyMapper">
+  <resultMap id="BaseResultMap" type="com.helper.store.domain.WantBuy">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="size" jdbcType="DOUBLE" property="size" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="is_sell" jdbcType="INTEGER" property="isSell" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+  </resultMap>
+
+  <update id="saveShoe" parameterType="com.helper.store.domain.WantBuy">
+    update want_buy set is_sell = 1 where id = #{id}
+  </update>
+</mapper>

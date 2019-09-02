@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helper.store.dao.OrderMapper">
+    <insert id="saveOrder" parameterType="map">
+        insert into `order`(gs_id,order_no,create_time,status,address_id,buy_user_id,sell_user_id,price)value(#{gsId},#{orderNo},#{createTime},#{status},#{addressId},#{buyUserId},#{sellUserId},#{price})
+    </insert>
+
+    <update id="cancelOrder" parameterType="map">
+        UPDATE `order`
+        SET status = 2
+        WHERE
+            id = #{orderId}
+    </update>
+
+    <update id="payOrder" parameterType="map">
+        UPDATE `order`
+        SET status = 1
+        WHERE
+            id = #{orderId}
+    </update>
+
+    <delete id="deleteOrder">
+        DELETE
+        FROM
+            `order`
+        WHERE
+            id = #{orderId}
+    </delete>
+
+    <select id="getOrderByNo" parameterType="map" resultType="map">
+        SELECT
+            id,
+            gs_id,
+            order_no,
+            create_time,
+            `status`,
+            buy_user_id,
+            sell_user_id,
+            price
+        FROM
+            `order`
+        WHERE
+            order_no = #{orderNo}
+    </select>
+
+</mapper>

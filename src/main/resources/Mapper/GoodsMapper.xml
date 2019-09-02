@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helper.store.dao.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.helper.store.domain.Goods">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="size" jdbcType="DOUBLE" property="size" />
+    <result column="is_sell" jdbcType="INTEGER" property="isSell" />
+    <result column="sale_price" jdbcType="DECIMAL" property="salePrice" />
+    <result column="sale_created" jdbcType="VARCHAR" property="saleCreated" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+  </resultMap>
+
+    <select id="selectSize" resultType="map">
+        SELECT
+            goods.id,
+            goods.goods_id as shoeId,
+            goods.size,
+            goods.price,
+            goods.is_sell
+        FROM
+            goods
+        LEFT JOIN shoe ON goods.goods_id = shoe.id
+        WHERE
+            goods.goods_id = #{shoeId}
+  </select>
+
+    <!-- 根据shoeId查找鞋信息 -->
+    <select id="selectShoeByShoeId" resultType="map">
+        SELECT
+            s.*,
+            MIN(g.price) AS minPrice,MAX(wb.price) AS maxPrice
+            FROM shoe s
+          LEFT JOIN want_buy wb ON wb.goods_id = s.id
+          LEFT JOIN goods g ON g.goods_id = s.id
+        WHERE s.id = #{shoeId}
+    </select>
+
+    <!-- 查找交易记录-->
+    <select id="selectOrderByGoodsId" resultType="map">
+            SELECT
+                o.*,
+                u.name,
+                gs.size
+            FROM
+                `order` o
+            LEFT JOIN goods gs ON gs.id = o.gs_id
+            LEFT JOIN shoe s ON s.id = gs.goods_id
+            LEFT JOIN address a ON a.id = o.address_id
+            LEFT JOIN `user` u ON u.id = o.buy_user_id
+            WHERE
+            gs.goods_id = #{shoeId}
+    </select>
+
+</mapper>

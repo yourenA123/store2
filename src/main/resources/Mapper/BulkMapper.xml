@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.helper.store.dao.BulkDao">
+    <select id="listShoe" resultType="map">
+        SELECT
+            id,
+            `name`,
+            create_time,
+            brand,
+            sell_num,
+            price,
+            number,
+            img
+        FROM
+            shoe_bulk
+    </select>
+
+    <select id="listStore" resultType="map" parameterType="map">
+        SELECT
+            id,
+            store_name
+        FROM
+            `user`
+        WHERE id IN (SELECT create_user FROM goods_bulk WHERE shoe_id = #{shoeId})
+    </select>
+
+    <select id="getStoreInfoById" parameterType="map" resultType="map">
+        SELECT
+            u.store_name,
+            u.address,
+            u.score,
+            COUNT( DISTINCT wb.id ) AS wantBuyCount,
+            COUNT( DISTINCT g.id ) AS goodsCount,
+            COUNT( DISTINCT gb.id ) AS goodsBuldCount
+        FROM
+            `user` u
+            LEFT JOIN want_buy wb ON u.id = wb.create_user
+            LEFT JOIN goods g ON u.id = g.create_user
+            LEFT JOIN goods_bulk gb ON u.id = gb.create_user
+        WHERE
+            u.id = #{userId}
+        GROUP BY
+            u.id
+    </select>
+
+    <select id="listgoodsBulk" parameterType="map" resultType="map">
+        SELECT
+            gb.shoe_id,
+            gb.size,
+            gb.price,
+            gb.create_time,
+            gb.create_user,
+            sb.`name`,
+            sb.brand,
+            sb.number,
+            sb.img,
+            sb.sell_num
+        FROM
+            goods_bulk gb
+            LEFT JOIN shoe_bulk sb ON gb.shoe_id = sb.id
+        WHERE
+            gb.create_user = #{userId}
+    </select>
+
+    <insert id="saveOrder" parameterType="map">
+        INSERT INTO order_bulk ( gs_id, order_no, create_time, `status`, address_id, buy_user_id, sell_user_id )
+        VALUES
+            ( #{gs_id}, #{order_no}, #{create_time}, #{status}, #{address_id}, #{buy_user_id}, #{sell_user_id} )
+    </insert>
+
+    <select id="getOrderBulkByNo" parameterType="map" resultType="map">
+        SELECT
+            id,
+            gs_id,
+            order_no,
+            create_time,
+            `status`,
+            buy_user_id,
+            sell_user_id
+        FROM
+            order_bulk
+        WHERE
+            order_no = #{order_no}
+    </select>
+
+    <update id="updateOrder" parameterType="map">
+        UPDATE `order_bulk`
+        SET `status` = #{status},
+        address_id = #{address_id}
+        WHERE
+            id = #{id}
+    </update>
+</mapper>

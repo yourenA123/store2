@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helper.store.dao.GoodsBulkMapper">
+  <resultMap id="BaseResultMap" type="com.helper.store.domain.GoodsBulk">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="size" jdbcType="DOUBLE" property="size" />
+    <result column="is_sell" jdbcType="INTEGER" property="isSell" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+  </resultMap>
+
+  <select id="selectSize" resultType="map">
+        SELECT
+            gb.goods_id AS shoeId,
+            gb.size,
+            gb.price,
+            gb.is_sell
+        FROM
+            goods_bulk gb
+        LEFT JOIN shoe ON gb.goods_id = shoe.id
+        WHERE
+            gb.goods_id = #{shoeId}
+  </select>
+</mapper>

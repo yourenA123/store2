@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helper.store.dao.AddressMapper">
+  <select id="listAddress" resultType="map">
+        SELECT
+            a.*
+        FROM
+            address a
+        LEFT JOIN `user` u ON a.user_id = u.id
+        WHERE
+            a.user_id = #{userId}
+    </select>
+
+  <insert id="insertAddress" parameterType="map">
+        INSERT INTO address(address,phone,user_name,user_id)
+        VALUES(#{address},#{phone},#{userName},#{userId})
+    </insert>
+
+  <delete id="deleteAddress">
+        DELETE
+        FROM
+            address
+        WHERE
+            address.id = #{id}
+    </delete>
+
+  <update id="updateAddress" parameterType="com.helper.store.domain.Address">
+    update address
+    <set>
+      <if test="address != null ">
+        address = #{address},
+      </if>
+      <if test="phone != null">
+        phone = #{phone},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName}
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helper.store.dao.ShoeMapper">
+    <resultMap id="BaseResultMap" type="com.helper.store.domain.Shoe">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="sell_num" jdbcType="INTEGER" property="sellNum" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    </resultMap>
+    <sql id="shoeSql">
+    SELECT
+        s.id,
+        s.`name`,
+        s.create_time,
+        s.type,
+        s.brand,
+        s.sell_num,
+        s.number
+    FROM
+        shoe s
+    </sql>
+    <select id="selectShoe" resultType="map">
+      SELECT
+        DISTINCT g.price,g.create_user,
+          s.*
+      FROM
+          shoe s
+      LEFT JOIN goods g ON s.id = g.goods_id
+      LEFT JOIN user u ON u.id = g.create_user
+    </select>
+    <!-- 销量排序 -->
+    <select id="selectShoeByNum" resultType="map">
+      SELECT
+      DISTINCT g.price,g.create_user,
+          s.*
+      FROM
+          shoe s
+      LEFT JOIN goods g ON s.id = g.goods_id
+      LEFT JOIN user u ON u.id = g.create_user
+      order by s.sell_num DESC
+    </select>
+    <!-- 时间排序 -->
+    <select id="selectShoeByTime" resultType="map">
+      SELECT
+      DISTINCT g.price,g.create_user,
+          s.*
+      FROM
+          shoe s
+      LEFT JOIN goods g ON s.id = g.goods_id
+      LEFT JOIN user u ON u.id = g.create_user
+    order by s.create_time DESC
+    </select>
+    <!-- 价格排序 高到低 -->
+    <select id="selectShoeByPriceDesc" resultType="map">
+      SELECT
+      DISTINCT g.price,g.create_user,
+          s.*
+      FROM
+          shoe s
+      LEFT JOIN goods g ON s.id = g.goods_id
+      LEFT JOIN user u ON u.id = g.create_user
+      order by g.price DESC
+    </select>
+    <!-- 价格排序 低到高 -->
+    <select id="selectShoeByPriceAsc" resultType="map">
+       SELECT
+       DISTINCT g.price,g.create_user,
+          s.*
+      FROM
+          shoe s
+      LEFT JOIN goods g ON s.id = g.goods_id
+      LEFT JOIN user u ON u.id = g.create_user
+      order by g.price
+    </select>
+    <!-- 遍历品牌-->
+    <select id="selectBrand" resultType="map">
+        SELECT id,brand from shoe
+    </select>
+    <!-- 商品筛选 -->
+    <select id="selectByTypeAndPriceRangeAndBrandAndSize" resultType="map">
+        SELECT
+          DISTINCT g.price as price,g.create_user,
+              s.*
+          FROM
+              shoe s
+          LEFT JOIN goods g ON s.id = g.goods_id
+          LEFT JOIN user u ON u.id = g.create_user
+          where s.id is not null
+          <if test="type != null">
+                and s.`type` = #{type}
+          </if>
+          <if test="minPrice != null &amp;&amp; maxPrice != null ">
+                and g.price between #{minPrice} and #{maxPrice}
+          </if>
+          <if test="brand != null">
+                and s.brand = #{brand}
+          </if>
+          <if test="size != null">
+                and g.size = #{size}
+          </if>
+    </select>
+
+    <!-- 相关推荐 -->
+    <select id="recommended" resultType="map">
+        SELECT
+          DISTINCT g.price,g.create_user,
+              s.*
+          FROM
+              shoe s
+          LEFT JOIN goods g ON s.id = g.goods_id
+          LEFT JOIN user u ON u.id = g.create_user
+        WHERE s.type = #{type}
+    </select>
+
+</mapper>
