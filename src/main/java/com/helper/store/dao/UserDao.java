@@ -41,4 +41,17 @@ public interface UserDao {
      * @return
      */
     void updateImg(Map<String,Object> param);
+
+    /**
+     * 获取用户余额
+     * @param param
+     * @return
+     */
+    Double getBalanceByUser(Map<String,Object> param);
+
+    /**
+     * 修改用户余额
+     * @param param
+     */
+    void updateUserBalance(Map<String,Object> param);
 }

@@ -33,7 +33,20 @@ public interface OrderMapper {
      * @return
      */
     void payOrder(Map<String, Object> param);
+    /**
+     * 填写快递单号
+     * @param param
+     * @return
+     *
+     */
+    void inputTrackingNumber(Map<String,Object> param);
 
+    /**
+     * 获取快递单号
+     * @param param
+     * @return
+     */
+    Map<String,Object> getTrackingNumber(Map<String,Object> param);
     /**
      * 删除订单
      * @param param

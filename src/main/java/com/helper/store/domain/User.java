@@ -27,4 +27,7 @@ public class User implements Serializable {
     private Integer addressId;
     private String invitationCode;
     private Integer isInvitation;
+    private Double balance;
+
+
 }

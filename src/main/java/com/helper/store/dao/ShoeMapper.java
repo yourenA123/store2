@@ -16,10 +16,17 @@ public interface ShoeMapper {
      */
     List<Map<String,Object>> selectShoe();
     /**
+     * 关键字查找鞋子
+     * @param param
+     * @return
+     */
+    List<Map<String,Object>> selectShoeByKeyword(Map<String, Object> param);
+    /**
      * 销量排序
      * @return
      */
     List<Map<String,Object>> selectShoeByNum();
+
     /**
      * 时间排序
      * @return

@@ -31,6 +31,13 @@ public interface OrderService {
     JsonMessage payOrder(Map<String, Object> param);
 
     /**
+     * 填写快递单号
+     * @param param
+     * @return
+     */
+    JsonMessage inputTrackingNumber(Map<String,Object> param);
+
+    /**
      * 删除订单
      * @param param
      * @return

@@ -78,6 +78,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public JsonMessage inputTrackingNumber(Map<String, Object> param) {
+        JsonMessage result = new JsonMessage();
+        try {
+            orderMapper.inputTrackingNumber(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e) {
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    @Override
     public JsonMessage deleteOrder(Map<String, Object> param) {
         JsonMessage result = new JsonMessage();
         try {

@@ -20,4 +20,5 @@ public class Order implements Serializable {
     private Integer buyUserId;
     private Integer sellUserId;
     private Double price;
+    private String trackingNumber;
 }

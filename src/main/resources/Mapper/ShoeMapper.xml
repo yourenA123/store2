@@ -9,6 +9,7 @@
     <result column="brand" jdbcType="VARCHAR" property="brand" />
     <result column="sell_num" jdbcType="INTEGER" property="sellNum" />
     <result column="number" jdbcType="VARCHAR" property="number" />
+
     </resultMap>
     <sql id="shoeSql">
     SELECT
@@ -22,6 +23,16 @@
     FROM
         shoe s
     </sql>
+    <!-- 根据shoe关键字查找鞋信息 -->
+    <select id="selectShoeByKeyword" resultType="map" >
+        SELECT
+        *
+        FROM
+          shoe
+        WHERE shoe.name like concat(concat('%',#{shoeName}),'%')
+    </select>
+
+
     <select id="selectShoe" resultType="map">
       SELECT
         DISTINCT g.price,g.create_user,

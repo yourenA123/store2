@@ -54,6 +54,18 @@ public class OrderController {
         Map<String,Object> param = ParamsUtils.getParmas(request);
         return orderService.payOrder(param);
     }
+    /**
+     * 填写快递订单号
+     *
+     */
+    @PostMapping("/inputTrackingNumber")
+    public JsonMessage inputTrackingNumber(HttpServletRequest request){
+        Map<String,Object> param = ParamsUtils.getParmas(request);
+        return orderService.inputTrackingNumber(param);
+    }
+
+
+
 
     /**
      * 删除订单

@@ -2,6 +2,9 @@ package com.helper.store.service;
 
 import com.helper.store.domain.JsonMessage;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author yanghao
  * @create 2019-07-02 15:28
@@ -15,10 +18,18 @@ public interface ShoeService {
     JsonMessage selectShoe();
 
     /**
+     * 模糊查找鞋子
+     * @param param
+     * @return
+     */
+    List<Map<String,Object>> selectShoeByKeyword(Map<String, Object> param);
+
+    /**
      * 销量排序
      * @return
      */
     JsonMessage selectShoeByNum();
+
     /**
      * 时间排序
      * @return

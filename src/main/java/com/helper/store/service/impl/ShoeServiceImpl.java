@@ -4,14 +4,12 @@ import com.helper.store.dao.ShoeMapper;
 import com.helper.store.domain.JsonMessage;
 import com.helper.store.service.ShoeService;
 import com.helper.store.util.Constants;
+import com.helper.store.util.ParamsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author yanghao
@@ -41,6 +39,12 @@ public class ShoeServiceImpl implements ShoeService {
         return result;
 
     }
+
+    @Override
+    public List<Map<String, Object>> selectShoeByKeyword(Map<String, Object> param) {
+        return shoeMapper.selectShoeByKeyword(param);
+    }
+
 
     @Override
     public JsonMessage selectShoeByNum() {
@@ -75,6 +79,7 @@ public class ShoeServiceImpl implements ShoeService {
         }
         return result;
     }
+
 
     @Override
     public JsonMessage selectShoeByPriceDesc() {
@@ -172,4 +177,6 @@ public class ShoeServiceImpl implements ShoeService {
         return result;
 
     }
+
+
 }
