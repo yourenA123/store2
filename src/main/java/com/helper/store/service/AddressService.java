@@ -13,7 +13,7 @@ import java.util.Map;
 public interface AddressService {
     /**
      * 查询所有地址
-     * @param userId
+     * @param param
      * @return
      */
     JsonMessage listAddress(Map<String, Object> param);
@@ -21,18 +21,21 @@ public interface AddressService {
     /**
      * 增加收货地址
      * @param param
+     * @return
      */
     JsonMessage insertAddress(Map<String, Object> param);
 
     /**
      * 根据id删除收货地址
      * @param id
+     * @return
      */
     JsonMessage deleteAddress(Integer id);
 
     /**
      * 修改收货地址
      * @param address
+     * @return
      */
     JsonMessage updateAddress(Address address);
 }

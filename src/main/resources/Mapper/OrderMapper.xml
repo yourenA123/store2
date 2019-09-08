@@ -32,6 +32,16 @@
         where  id=#{orderId}
     </select>
 
+    <select id="getOrderByBuysellId" parameterType="map">
+          select *
+          from `order`
+          <where>
+          <choose>
+              <when test="buysellId =0" > status=#{statusId} and buyUserId=#{userId}</when>
+              <when test="buysellId !=0" > status=#{statusId} and sellUserId=#{userId}</when>
+          </choose>
+          </where>
+    </select>
 
     <delete id="deleteOrder">
         DELETE

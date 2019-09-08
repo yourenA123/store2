@@ -4,6 +4,7 @@ import com.helper.store.domain.JsonMessage;
 import com.helper.store.service.OrderService;
 import com.helper.store.util.ParamsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,15 +57,23 @@ public class OrderController {
     }
     /**
      * 填写快递订单号
-     *
+     * @param request
+     * @return
      */
     @PostMapping("/inputTrackingNumber")
     public JsonMessage inputTrackingNumber(HttpServletRequest request){
         Map<String,Object> param = ParamsUtils.getParmas(request);
         return orderService.inputTrackingNumber(param);
     }
-
-
+    /**
+     * 获取快递单号
+     * @param request
+     * @return
+     */
+    public JsonMessage getTrackingNumber(HttpServletRequest request){
+        Map<String,Object> param = ParamsUtils.getParmas(request);
+        return orderService.getTrackingNumber(param);
+    }
 
 
     /**

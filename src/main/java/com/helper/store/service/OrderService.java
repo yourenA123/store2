@@ -38,6 +38,13 @@ public interface OrderService {
     JsonMessage inputTrackingNumber(Map<String,Object> param);
 
     /**
+     * 获取快递单号
+     * @param param
+     * @return
+     */
+    JsonMessage getTrackingNumber(Map<String,Object> param);
+
+    /**
      * 删除订单
      * @param param
      * @return

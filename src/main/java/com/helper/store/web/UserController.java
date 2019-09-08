@@ -101,7 +101,7 @@ public class UserController {
     }
 
     /**
-     * 修改常驻地
+     * 修改图片
      * @param request
      * @return
      */
