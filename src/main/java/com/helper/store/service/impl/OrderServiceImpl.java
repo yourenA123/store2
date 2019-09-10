@@ -107,6 +107,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Map<String, Object>> getOrderByBuyorsellId(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return orderMapper.getOrderByBuyorsellId(param);
+    }
+
+
+    @Override
     public JsonMessage deleteOrder(Map<String, Object> param) {
         JsonMessage result = new JsonMessage();
         try {

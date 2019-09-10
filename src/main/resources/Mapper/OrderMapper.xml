@@ -32,15 +32,15 @@
         where  id=#{orderId}
     </select>
 
-    <select id="getOrderByBuysellId" parameterType="map">
+    <select id="getOrderByBuyorsellId" parameterType="map" resultType="map">
           select *
-          from `order`
-          <where>
-          <choose>
-              <when test="buysellId =0" > status=#{statusId} and buyUserId=#{userId}</when>
-              <when test="buysellId !=0" > status=#{statusId} and sellUserId=#{userId}</when>
-          </choose>
-          </where>
+        from `order`
+        where
+        <choose>
+            <when test="buyorsellId!=0" > buy_user_id=#{userId} </when>
+            <otherwise> sell_user_id=#{userId} </otherwise>
+        </choose>
+        order by create_time desc
     </select>
 
     <delete id="deleteOrder">

@@ -1,7 +1,9 @@
 package com.helper.store.service;
 
 import com.helper.store.domain.JsonMessage;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +45,12 @@ public interface OrderService {
      * @return
      */
     JsonMessage getTrackingNumber(Map<String,Object> param);
+    /**
+     * 根据buysellID获取订单信息
+     * @param param
+     * @return
+     */
+    List<Map<String,Object>> getOrderByBuyorsellId(Map<String,Object> param);
 
     /**
      * 删除订单

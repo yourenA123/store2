@@ -2,8 +2,10 @@ package com.helper.store.dao;
 
 import com.helper.store.domain.JsonMessage;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,6 +49,14 @@ public interface OrderMapper {
      * @return
      */
     Map<String,Object> getTrackingNumber(Map<String,Object> param);
+
+    /**
+     * 根据buyorsellID获取订单信息
+     * @param param
+     * @return
+     */
+    List<Map<String,Object>> getOrderByBuyorsellId(Map<String,Object> param);
+
     /**
      * 删除订单
      * @param param
