@@ -63,10 +63,20 @@ public class OrderController {
      * @param request
      * @return
      */
-    @PostMapping("/inputTrackingNumber")
-    public JsonMessage inputTrackingNumber(HttpServletRequest request){
-        Map<String,Object> param = ParamsUtils.getParmas(request);
-        return orderService.inputTrackingNumber(param);
+    @GetMapping(value = "/inputTrackingNumber")
+    public JsonMessage updateStoreName(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            orderService.inputTrackingNumber(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
     }
     /**
      * 获取快递单号
@@ -75,15 +85,25 @@ public class OrderController {
      */
     @GetMapping("/getTrackingNumber")
     public JsonMessage getTrackingNumber(HttpServletRequest request){
-        Map<String,Object> param = ParamsUtils.getParmas(request);
-        return orderService.getTrackingNumber(param);
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            orderService.getTrackingNumber(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
     }
     /**
      * 根据buysellID获取订单信息
      * @param request
      * @return
      */
-    @GetMapping("/getOrderByBuyorsellId")
+    @PostMapping("/getOrderByBuyorsellId")
     public JsonMessage getOrderByBuyorsellId(HttpServletRequest request){
         JsonMessage result = new JsonMessage();
         Map<String, Object> data=new HashMap<String, Object>(16);
@@ -112,5 +132,25 @@ public class OrderController {
     public JsonMessage deleteOrder(HttpServletRequest request){
         Map<String,Object> param = ParamsUtils.getParmas(request);
         return orderService.deleteOrder(param);
+    }
+
+    /**
+     * 确认收货
+     *
+     */
+    @PostMapping("/orderFinish")
+    public JsonMessage orderFinish(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            orderService.orderFinish(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
     }
 }

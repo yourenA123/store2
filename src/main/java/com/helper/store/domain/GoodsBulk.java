@@ -12,9 +12,9 @@ import java.io.Serializable;
 @Data
 public class GoodsBulk implements Serializable {
 
-    private Integer id;
+    private Integer gsbId;
 
-    private Integer goodsId;
+    private Integer shoeId;
 
     private Double size;
 

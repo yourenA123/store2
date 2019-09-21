@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class WantBuy implements Serializable {
     private Integer id;
 
-    private Integer goodsId;
+    private Integer shoeId;
 
     private Double size;
 

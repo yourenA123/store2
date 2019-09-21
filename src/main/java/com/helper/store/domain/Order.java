@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Data
 public class Order implements Serializable {
-    private Integer id;
+    private Integer order_id;
     private Integer gsId;
     private String orderNo;
     private String createTime;

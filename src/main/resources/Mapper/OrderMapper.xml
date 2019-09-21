@@ -9,38 +9,41 @@
         UPDATE `order`
         SET status = 4
         WHERE
-            id = #{orderId}
+            order_id = #{orderId}
     </update>
 
     <update id="payOrder" parameterType="map">
         UPDATE `order`
         SET status = 1
         WHERE
-            id = #{orderId}
+            order_id = #{orderId}
     </update>
     
     <update id="inputTrackingNumber" parameterType="map">
         UPDATE `order`
         set status = 2,trackingnumber=#{trackingNumber}
         where
-            id=#{orderId}
+            order_id=#{orderId}
     </update>
 
     <select id="getTrackingNumber" parameterType="map">
         select trackingnumber
         from `order`
-        where  id=#{orderId}
+        where  order_id=#{orderId}
     </select>
 
     <select id="getOrderByBuyorsellId" parameterType="map" resultType="map">
-          select *
-        from `order`
-        where
+          select shoe.*,`order`.*,goods.size,address.address,address.user_name,address.phone
+        from `order`,shoe,goods,address
+        WHERE
+        goods.shoe_id=shoe.id and
         <choose>
             <when test="buyorsellId!=0" > buy_user_id=#{userId} </when>
             <otherwise> sell_user_id=#{userId} </otherwise>
         </choose>
-        order by create_time desc
+        and `order`.gs_id=goods.gs_id
+        and `order`.address_id=address.id
+        order by `order`.create_time desc
     </select>
 
     <delete id="deleteOrder">
@@ -48,23 +51,30 @@
         FROM
             `order`
         WHERE
-            id = #{orderId}
+            order_id = #{orderId}
     </delete>
 
     <select id="getOrderByNo" parameterType="map" resultType="map">
         SELECT
-            id,
-            gs_id,
-            order_no,
-            create_time,
-            `status`,
-            buy_user_id,
-            sell_user_id,
-            price
+           `order`.*,
+            shoe.*,
+            goods.size,
+            address.address,
+            address.user_name,
+            address.phone
         FROM
-            `order`
+            `order`,shoe,goods,address
         WHERE
-            order_no = #{orderNo}
+            order_no = #{orderNo} and goods.shoe_id=shoe.id and `order`.gs_id=goods.gs_id
+        and `order`.address_id=address.id
     </select>
+
+    <update id="orderFinish" parameterType="map">
+          UPDATE `order`
+          set status=3
+          where
+           order_id=#{orderId}
+    </update>
+
 
 </mapper>

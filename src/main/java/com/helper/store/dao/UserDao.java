@@ -43,15 +43,35 @@ public interface UserDao {
     void updateImg(Map<String,Object> param);
 
     /**
+     * 获取用户信息
+     * @param param
+     * @return
+     */
+    Map<String,Object> getUserInfo(Map<String,Object> param);
+
+
+    /**
      * 获取用户余额
      * @param param
      * @return
      */
-    Double getBalanceByUser(Map<String,Object> param);
+    List<Map<String,Object>> getBalanceByUser(Map<String,Object> param);
 
     /**
      * 修改用户余额
      * @param param
      */
     void updateUserBalance(Map<String,Object> param);
+
+    /**
+     *绑定用户支付宝
+     * @param param
+     */
+    void updateUserAliPay(Map<String,Object> param);
+
+    /**
+     *绑定用户银行卡
+     * @param param
+     */
+    void updateUserBankCard(Map<String,Object> param);
 }

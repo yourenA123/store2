@@ -13,8 +13,6 @@ public class Shoe implements Serializable {
 
     private String name;
 
-    private String createTime;
-
     private Integer type;
 
     private String brand;

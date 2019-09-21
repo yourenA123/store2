@@ -29,6 +29,7 @@ public interface OrderMapper {
      * @return
      */
     void cancelOrder(Map<String, Object> param);
+
     /**
      * 立即付款
      * @param param
@@ -70,4 +71,10 @@ public interface OrderMapper {
      * @return
      */
     Map<String,Object> getOrderByNo(Map<String,Object> param);
+    /**
+     * 完成订单
+     * @param param
+     * @return
+     */
+    void orderFinish(Map<String,Object> param);
 }

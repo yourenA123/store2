@@ -20,6 +20,13 @@
             u.id
     </select>
 
+    <select id="getUserInfo" parameterType="map" resultType="map">
+        select *
+        from `user`
+        where id=#{userId}
+
+    </select>
+
     <update id="updateStoreName" parameterType="map">
         UPDATE `user`
         SET store_name = #{storeName}
@@ -41,18 +48,36 @@
             id = #{userId}
     </update>
 
-    <select id="getBalanceByUser" parameterType="map" resultType="Double">
+    <select id="getBalanceByUser" parameterType="map" resultType="map">
         SELECT
-            balance
+            `user`.balance,
+            withdrawalrecord.*,
+            `user`.user_AliPay,
+            `user`.phone
         FROM
-            `user`
+            `user`,withdrawalrecord
         WHERE
-            id = #{userId}
+            `user`.id = #{userId} and `user`.id=withdrawalrecord.user_id
+        GROUP by withdrawalrecord.creat_time desc
     </select>
 
     <update id="updateUserBalance" parameterType="map">
         UPDATE `user`
             SET balance = #{balance}
+        WHERE
+            id = #{userId}
+    </update>
+
+    <update id="updateUserAliPay" parameterType="map">
+        UPDATE `user`
+            SET user_aliPay = #{userAliPay}
+        WHERE
+            id = #{userId}
+    </update>
+
+    <update id="updateUserBankCard" parameterType="map">
+        UPDATE `user`
+            SET user_BankCard = #{userBankCard},user_BankCardName=#{userBankCardName}
         WHERE
             id = #{userId}
     </update>

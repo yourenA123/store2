@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 @Data
 public class Goods implements Serializable {
-    private Integer id;
+    private Integer gsId;
 
-    private Integer goodsId;
+    private Integer shoeId;
 
     private Double size;
 

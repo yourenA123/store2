@@ -78,33 +78,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public JsonMessage inputTrackingNumber(Map<String, Object> param) {
-        JsonMessage result = new JsonMessage();
-        try {
-            orderMapper.inputTrackingNumber(param);
-            result.setResponseCode(Constants.RES_CODE_0);
-            result.setErrorMessage(Constants.RES_MESSAGE_0);
-        }catch (Exception e) {
-            result.setResponseCode(Constants.RES_CODE_101);
-            result.setErrorMessage(Constants.RES_MESSAGE_101);
-        }
-        return result;
+    public void inputTrackingNumber(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        orderMapper.inputTrackingNumber(param);
     }
 
     @Override
-    public JsonMessage getTrackingNumber(Map<String, Object> param) {
-        JsonMessage result = new JsonMessage();
-        try {
-            orderMapper.getTrackingNumber(param);
-            result.setResponseCode(Constants.RES_CODE_0);
-            result.setErrorMessage(Constants.RES_MESSAGE_0);
-        }catch (Exception e) {
-            e.printStackTrace();
-            result.setResponseCode(Constants.RES_CODE_101);
-            result.setErrorMessage(Constants.RES_MESSAGE_101);
-        }
-        return result;
+    public Map<String, Object> getTrackingNumber(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return orderMapper.getTrackingNumber(param);
     }
+
 
     @Override
     public List<Map<String, Object>> getOrderByBuyorsellId(Map<String, Object> param) {
@@ -126,6 +110,12 @@ public class OrderServiceImpl implements OrderService {
             result.setErrorMessage(Constants.RES_MESSAGE_101);
         }
         return result;
+    }
+
+    @Override
+    public void orderFinish(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        orderMapper.orderFinish(param);
     }
 
 }

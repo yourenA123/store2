@@ -38,5 +38,41 @@ public interface UserService {
      */
     void updateImg(Map<String,Object> param);
 
+    /**
+     * 获取用户信息
+     * @param param
+     * @return
+     */
+    Map<String,Object> getUserInfo(Map<String,Object> param);
+
+    /**
+     * 获取用户余额
+     * @param param
+     * @return
+     */
+    List<Map<String,Object>> getBalanceByUser(Map<String,Object> param);
+
+    /**
+     * 修改钱包余额
+     * @param param
+     * @return
+     */
+    void updateUserBalance(Map<String,Object> param);
+
+    /**
+     *绑定用户支付宝
+     * @param param
+     * @return
+     */
+    void updateUserAliPay(Map<String,Object> param);
+
+    /**
+     *绑定用户银行卡
+     * @param param
+     * @return
+     */
+    void updateUserBankCard(Map<String,Object> param);
+
+
 
 }

@@ -37,14 +37,14 @@ public interface OrderService {
      * @param param
      * @return
      */
-    JsonMessage inputTrackingNumber(Map<String,Object> param);
+    void inputTrackingNumber(Map<String,Object> param);
 
     /**
      * 获取快递单号
      * @param param
      * @return
      */
-    JsonMessage getTrackingNumber(Map<String,Object> param);
+    Map<String,Object> getTrackingNumber(Map<String,Object> param);
     /**
      * 根据buysellID获取订单信息
      * @param param
@@ -58,5 +58,12 @@ public interface OrderService {
      * @return
      */
     JsonMessage deleteOrder(Map<String, Object> param);
+
+    /**
+     * 完成订单
+     * @param param
+     * @return
+     */
+    void orderFinish(Map<String,Object> param);
 
 }

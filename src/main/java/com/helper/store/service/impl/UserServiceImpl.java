@@ -42,4 +42,36 @@ public class UserServiceImpl implements UserService {
         ParamsUtils.getUser("userId",param);
         userDao.updateImg(param);
     }
+
+    @Override
+    public Map<String, Object> getUserInfo(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return userDao.getUserInfo(param);
+    }
+
+
+    @Override
+    public List<Map<String,Object>> getBalanceByUser(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return userDao.getBalanceByUser(param);
+    }
+
+
+    @Override
+    public void updateUserBalance(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        userDao.updateUserBalance(param);
+    }
+
+    @Override
+    public void updateUserAliPay(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        userDao.updateUserAliPay(param);
+    }
+
+    @Override
+    public void updateUserBankCard(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        userDao.updateUserBankCard(param);
+    }
 }
