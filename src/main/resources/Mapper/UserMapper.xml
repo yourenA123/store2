@@ -75,11 +75,14 @@
             id = #{userId}
     </update>
 
-    <update id="updateUserBankCard" parameterType="map">
-        UPDATE `user`
-            SET user_BankCard = #{userBankCard},user_BankCardName=#{userBankCardName}
-        WHERE
-            id = #{userId}
+    <update id="withdrawal" parameterType="map">
+        update `user`
+         set balance= balance - #{balance}
+         where id=#{userId}
     </update>
+
+    <insert id="saveWithdrawalrecord" parameterType="map">
+        insert into withdrawalrecord(user_id,creat_time,balance) value (#{userId},now(),#{balance})
+    </insert>
 
 </mapper>

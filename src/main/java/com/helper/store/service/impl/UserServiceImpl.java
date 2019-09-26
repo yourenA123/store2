@@ -7,6 +7,8 @@ import com.helper.store.util.ParamsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -58,20 +60,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void updateUserBalance(Map<String, Object> param) {
-        ParamsUtils.getUser("userId",param);
-        userDao.updateUserBalance(param);
-    }
-
-    @Override
     public void updateUserAliPay(Map<String, Object> param) {
         ParamsUtils.getUser("userId",param);
         userDao.updateUserAliPay(param);
     }
 
+
     @Override
-    public void updateUserBankCard(Map<String, Object> param) {
+    public void withdrawal(Map<String, Object> param) {
         ParamsUtils.getUser("userId",param);
-        userDao.updateUserBankCard(param);
+        userDao.withdrawal(param);
+    }
+
+    @Override
+    public void saveWithdrawalrecord(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        userDao.saveWithdrawalrecord(param);
     }
 }

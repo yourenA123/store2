@@ -29,22 +29,22 @@ public class StaticPeramConfiguration {
     /**
      * 你的accessKeyId,填你自己的 上文配置所得  自行配置
      */
-    public final static String ACCESS_KEY_ID = "LTAIG12W5eipRqdu";
+    public final static String ACCESS_KEY_ID = "LTAI4Fqvp2EQQptj7PrVypkX";
 
     /**
      * 你的accessKeySecret,填你自己的 上文配置所得 自行配置
      */
-    public final static String ACCESS_KEY_SECRET = "ebgiqhINoekvQcRpi6vY438N3kg0FV";
+    public final static String ACCESS_KEY_SECRET = "RykVsdi0gbw3wnxMwtJz7o28LbMLH5";
 
     /**
      * 必填:短信签名-可在短信控制台中找到
      * 阿里云配置你自己的短信签名填入
      */
-    public final static String SIGN_NAME = "尘封依xin";
+    public final static String SIGN_NAME = "浙江昀翔网络科技有限公司";
 
     /**
      * 阿里云配置你自己的短信模板填入
      */
-    public final static String TEMPLATE_CODE = "SMS_153992914";
+    public final static String TEMPLATE_CODE = "SMS_174650512";
 
 }

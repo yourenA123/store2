@@ -26,14 +26,14 @@
             order_id=#{orderId}
     </update>
 
-    <select id="getTrackingNumber" parameterType="map">
+    <select id="getTrackingNumber" parameterType="map" resultType="map">
         select trackingnumber
         from `order`
         where  order_id=#{orderId}
     </select>
 
     <select id="getOrderByBuyorsellId" parameterType="map" resultType="map">
-          select shoe.*,`order`.*,goods.size,address.address,address.user_name,address.phone
+        select shoe.*,`order`.*,goods.size,address.address,address.user_name,address.phone
         from `order`,shoe,goods,address
         WHERE
         goods.shoe_id=shoe.id and

@@ -2,6 +2,7 @@ package com.helper.store.web;
 
 import com.helper.store.domain.JsonMessage;
 import com.helper.store.service.AuthService;
+import com.helper.store.service.UserService;
 import com.helper.store.util.Constants;
 import com.helper.store.util.ParamsUtils;
 import com.helper.store.util.RedisUtils;
@@ -37,6 +38,8 @@ public class AuthController {
     private AuthService authService;
     @Autowired
     private RedisUtils redisUtils;
+    @Autowired
+    private UserService userService;
     /**
      * 发送验证码
      * @param request
@@ -134,6 +137,43 @@ public class AuthController {
         } catch (AuthenticationException e) {
             result.setResponseCode(Constants.RES_CODE_904);
             result.setErrorMessage(Constants.RES_MESSAGE_904);
+        } catch (Exception e) {
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    /**
+     * 获取阿里验证码
+     * @param request
+     * @return
+     */
+    @GetMapping("/getAliSMS")
+    public JsonMessage getAliSMS(HttpServletRequest request) {
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        Map<String, Object> codeData = new HashMap<String, Object>(16);
+        try {
+            String phone = param.get("phone").toString();
+            String vCode = SmsUtil.getPhonemsg(phone);
+            if (MOBILE_NUMBER_ILLEGAL.equals(vCode)) {
+                result.setResponseCode(Constants.RES_CODE_604);
+                result.setErrorMessage(Constants.RES_MESSAGE_604);
+                return result;
+            }
+            if (vCode.length() != 6) {
+                //短信服务出现错误
+                result.setResponseCode(Constants.RES_CODE_101);
+                result.setErrorMessage(Constants.RES_MESSAGE_101);
+                return result;
+            }
+            codeData.put("phone", phone);
+            codeData.put("vCode", vCode);
+            codeData.put("createTime", System.currentTimeMillis());
+            result.setData(codeData);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
         } catch (Exception e) {
             result.setResponseCode(Constants.RES_CODE_101);
             result.setErrorMessage(Constants.RES_MESSAGE_101);

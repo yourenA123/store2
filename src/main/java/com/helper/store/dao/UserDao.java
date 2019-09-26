@@ -58,20 +58,21 @@ public interface UserDao {
     List<Map<String,Object>> getBalanceByUser(Map<String,Object> param);
 
     /**
-     * 修改用户余额
-     * @param param
-     */
-    void updateUserBalance(Map<String,Object> param);
-
-    /**
      *绑定用户支付宝
      * @param param
      */
     void updateUserAliPay(Map<String,Object> param);
 
+
     /**
-     *绑定用户银行卡
+     * 用户提现
      * @param param
      */
-    void updateUserBankCard(Map<String,Object> param);
+    void withdrawal(Map<String,Object> param);
+
+    /**
+     * 提现记录
+     * @param param
+     */
+    void saveWithdrawalrecord(Map<String,Object> param);
 }

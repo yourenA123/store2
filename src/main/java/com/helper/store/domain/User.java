@@ -29,7 +29,6 @@ public class User implements Serializable {
     private Integer isInvitation;
     private Double balance;
     private String user_AliPay;
-    private String user_BankCard;
 
 
 }

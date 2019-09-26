@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class WantBuy implements Serializable {
-    private Integer id;
+    private Integer want_id;
 
     private Integer shoeId;
 

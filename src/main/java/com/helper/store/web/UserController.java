@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -173,32 +175,10 @@ public class UserController {
 
 
     /**
-     * 修改用户余额
-     * @param request
-     * @return
-     */
-    @PostMapping(value = "/updateUserBalance")
-    public JsonMessage updateUserBalance(HttpServletRequest request){
-        JsonMessage result = new JsonMessage();
-        Map<String, Object> data = new HashMap<String, Object>(16);
-        Map<String, Object> param = ParamsUtils.getParmas(request);
-        try {
-            userService.updateUserBalance(param);
-            result.setResponseCode(Constants.RES_CODE_0);
-            result.setErrorMessage(Constants.RES_MESSAGE_0);
-        }catch (Exception e){
-            result.setResponseCode(Constants.RES_CODE_101);
-            result.setErrorMessage(Constants.RES_MESSAGE_101);
-        }
-        return result;
-    }
-
-    /**
      *绑定用户支付宝
      * @param request
      * @return
      */
-
     @PostMapping("/updateUserAliPay")
     public JsonMessage updateUserAliPay(HttpServletRequest request){
         JsonMessage result = new JsonMessage();
@@ -215,18 +195,21 @@ public class UserController {
         return result;
     }
 
+
     /**
-     *绑定用户银行卡
+     * 用户提现
      * @param request
      * @return
      */
-    @GetMapping
-    public JsonMessage updateUserBankCard(HttpServletRequest request){
+    @PostMapping("/withdrawal")
+    public JsonMessage withdrawal(HttpServletRequest request){
         JsonMessage result = new JsonMessage();
         Map<String, Object> data = new HashMap<String, Object>(16);
         Map<String, Object> param = ParamsUtils.getParmas(request);
         try {
-            userService.updateUserBankCard(param);
+
+            userService.saveWithdrawalrecord(param);
+            userService.withdrawal(param);
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e){
@@ -234,6 +217,27 @@ public class UserController {
             result.setErrorMessage(Constants.RES_MESSAGE_101);
         }
         return result;
+    }
+    /**
+     *提现记录
+     */
+    @PostMapping("/saveWithdrawalrecord")
+    public JsonMessage saveWithdrawalrecord(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            param.put("createTime",sdf.format(new Date()));
+            userService.saveWithdrawalrecord(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+    }
+        return result;
+
     }
 
 }

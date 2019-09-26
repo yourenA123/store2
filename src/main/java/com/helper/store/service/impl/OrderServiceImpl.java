@@ -85,7 +85,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Map<String, Object> getTrackingNumber(Map<String, Object> param) {
-        ParamsUtils.getUser("userId",param);
         return orderMapper.getTrackingNumber(param);
     }
 
@@ -114,7 +113,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void orderFinish(Map<String, Object> param) {
-        ParamsUtils.getUser("userId",param);
         orderMapper.orderFinish(param);
     }
 

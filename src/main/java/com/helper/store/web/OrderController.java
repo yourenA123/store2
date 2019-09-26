@@ -89,9 +89,11 @@ public class OrderController {
         Map<String, Object> data = new HashMap<String, Object>(16);
         Map<String, Object> param = ParamsUtils.getParmas(request);
         try {
-            orderService.getTrackingNumber(param);
+            Map<String,Object> trackingNumber = orderService.getTrackingNumber(param);
+            data.put("trackingNumber", trackingNumber);
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
+            result.setData(data);
         }catch (Exception e){
             result.setResponseCode(Constants.RES_CODE_101);
             result.setErrorMessage(Constants.RES_MESSAGE_101);
@@ -103,7 +105,7 @@ public class OrderController {
      * @param request
      * @return
      */
-    @PostMapping("/getOrderByBuyorsellId")
+    @GetMapping("/getOrderByBuyorsellId")
     public JsonMessage getOrderByBuyorsellId(HttpServletRequest request){
         JsonMessage result = new JsonMessage();
         Map<String, Object> data=new HashMap<String, Object>(16);

@@ -5,6 +5,7 @@ import com.helper.store.domain.JsonMessage;
 import com.helper.store.domain.WantBuy;
 import com.helper.store.service.WantBuyService;
 import com.helper.store.util.Constants;
+import com.helper.store.util.ParamsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,11 @@ public class WantBuyServiceImpl implements WantBuyService {
         }
         return result;
 
+    }
+
+    @Override
+    public Map<String, Object> getUserWantBuy(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return wantBuyMapper.getUserWantBuy(param);
     }
 }
