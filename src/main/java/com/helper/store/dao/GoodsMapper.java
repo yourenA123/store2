@@ -29,4 +29,31 @@ public interface GoodsMapper {
      * @return
      */
     List<Map<String,Object>> selectOrderByGoodsId(Integer shoeId);
+
+    /**
+     * 我正在出售的鞋子
+     * @param param
+     * @return
+     */
+    List<Map<String,Object>> shoesOnSale(Map<String,Object> param);
+
+    /**
+     * 上架鞋子
+     * @param param
+     */
+    void sellingShoes(Map<String,Object> param);
+
+    /**
+     * 获取求购的最低价
+     * @param param
+     * @return
+     */
+    Map<String,Object> getMinPrice(Map<String,Object>param);
+
+    /**
+     * 获取求购的最高价
+     * @param param
+     * @return
+     */
+    Map<String,Object> getMaxPrice(Map<String,Object>param);
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,8 +43,8 @@ public class WantBuyController {
         Map<String, Object> data = new HashMap<String, Object>(16);
         Map<String, Object> param = ParamsUtils.getParmas(request);
         try {
-            Map<String,Object> userWantInfo = wantBuyService.getUserWantBuy(param);
-            data.put("userWantInfo", userWantInfo);
+            List<Map<String,Object>> wantShoeInfo = wantBuyService.getUserWantBuy(param);
+            data.put("wantShoeInfo", wantShoeInfo);
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
             result.setData(data);
@@ -53,5 +54,47 @@ public class WantBuyController {
         }
         return result;
     }
+
+    /**
+     * 获取最大最小价格
+     * @param request
+     * @return
+     */
+    @GetMapping(value = "/getPrice")
+    public JsonMessage getPrice (HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            Map<String,Object> minPrice = wantBuyService.getMinPrice(param);
+            data.put("minPrice", minPrice);
+            Map<String,Object> maxPrice = wantBuyService.getMaxPrice(param);
+            data.put("maxPrice", maxPrice);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+            result.setData(data);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    @PostMapping(value = "/saveWantBuy")
+    public JsonMessage saveWantBuy(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            wantBuyService.saveWantBuy(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
 }
 

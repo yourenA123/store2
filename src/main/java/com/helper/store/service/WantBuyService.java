@@ -3,6 +3,7 @@ package com.helper.store.service;
 import com.helper.store.domain.JsonMessage;
 import com.helper.store.domain.WantBuy;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,7 +24,26 @@ public interface WantBuyService {
      * @param param
      * @return
      */
-    Map<String,Object> getUserWantBuy(Map<String,Object> param);
+    List<Map<String,Object>> getUserWantBuy (Map<String,Object> param);
+
+    /**
+     * 获取求购的最低价
+     * @param param
+     * @return
+     */
+    Map<String,Object> getMinPrice(Map<String,Object>param);
+
+    /**
+     * 获取求购的最高价
+     * @param param
+     * @return
+     */
+    Map<String,Object> getMaxPrice(Map<String,Object>param);
+    /**
+     * 保存求购订单
+     * @param param
+     */
+    void saveWantBuy(Map<String,Object> param);
 
 
 }

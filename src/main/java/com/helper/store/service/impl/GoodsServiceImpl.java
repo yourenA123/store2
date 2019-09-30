@@ -4,6 +4,7 @@ import com.helper.store.dao.GoodsMapper;
 import com.helper.store.domain.JsonMessage;
 import com.helper.store.service.GoodsService;
 import com.helper.store.util.Constants;
+import com.helper.store.util.ParamsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,5 +73,29 @@ public class GoodsServiceImpl implements GoodsService {
             result.setErrorMessage(Constants.RES_MESSAGE_101);
         }
         return result;
+    }
+
+    @Override
+    public List<Map<String,Object>> shoesOnSale(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return goodsMapper.shoesOnSale(param);
+    }
+
+    @Override
+    public void sellingShoes(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+         goodsMapper.sellingShoes(param);
+    }
+
+    @Override
+    public Map<String, Object> getMinPrice(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return goodsMapper.getMinPrice(param);
+    }
+
+    @Override
+    public Map<String, Object> getMaxPrice(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return goodsMapper.getMaxPrice(param);
     }
 }

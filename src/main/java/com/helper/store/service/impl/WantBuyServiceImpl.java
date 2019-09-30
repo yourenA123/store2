@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,8 +45,28 @@ public class WantBuyServiceImpl implements WantBuyService {
     }
 
     @Override
-    public Map<String, Object> getUserWantBuy(Map<String, Object> param) {
+    public List<Map<String, Object>> getUserWantBuy(Map<String, Object> param) {
         ParamsUtils.getUser("userId",param);
         return wantBuyMapper.getUserWantBuy(param);
     }
+
+    @Override
+    public Map<String, Object> getMinPrice(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return wantBuyMapper.getMinPrice(param);
+    }
+
+    @Override
+    public Map<String, Object> getMaxPrice(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return wantBuyMapper.getMaxPrice(param);
+    }
+
+    @Override
+    public void saveWantBuy(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+       wantBuyMapper.saveWantBuy(param);
+    }
+
+
 }

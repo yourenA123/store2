@@ -10,6 +10,7 @@
     <result column="sale_created" jdbcType="VARCHAR" property="saleCreated" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="courier"  jdbcType="VARCHAR" property="courier" />
   </resultMap>
 
     <select id="selectSize" resultType="map">
@@ -52,5 +53,32 @@
             WHERE
             gs.shoe_id = #{shoeId}
     </select>
+    
+    <select id="shoesOnSale" parameterType="map" resultType="map">
+        select
+          shoe.*,
+          goods.size,
+          goods.price
+        from
+          shoe,
+          goods
+        where shoe.id=goods.shoe_id
+          and goods.create_user=#{userId}
+    </select>
+    
+    <insert id="sellingShoes" parameterType="map">
+        insert into goods(shoe_id,`size`,price,courier,create_user) value (#{shoeId},#{size},#{price},#{courier},#{userId})
+
+    </insert>
+
+    <select id="getMinPrice" parameterType="map" resultType="map">
+       select min(price)as mip from goods
+       where shoe_id=#{shoeId} and `size`=#{shoeSize}
+   </select>
+
+    <select id="getMaxPrice" parameterType="map" resultType="map">
+       select max(price) as map from goods
+       where shoe_id=#{shoeId} and `size`=#{shoeSize}
+   </select>
 
 </mapper>

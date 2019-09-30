@@ -227,8 +227,7 @@ public class UserController {
         Map<String, Object> data = new HashMap<String, Object>(16);
         Map<String, Object> param = ParamsUtils.getParmas(request);
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            param.put("createTime",sdf.format(new Date()));
+
             userService.saveWithdrawalrecord(param);
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);

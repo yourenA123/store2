@@ -22,4 +22,6 @@ public class Goods implements Serializable {
 
     private Integer createUser;
 
+    private String courier;
+
 }

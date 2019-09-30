@@ -29,9 +29,9 @@
             u.store_name,
             u.address,
             u.score,
-            COUNT( DISTINCT wb.id ) AS wantBuyCount,
-            COUNT( DISTINCT g.id ) AS goodsCount,
-            COUNT( DISTINCT gb.id ) AS goodsBuldCount
+            COUNT( DISTINCT wb.want_id ) AS wantBuyCount,
+            COUNT( DISTINCT g.gs_id ) AS goodsCount,
+            COUNT( DISTINCT gb.gsb_id ) AS goodsBuldCount
         FROM
             `user` u
             LEFT JOIN want_buy wb ON u.id = wb.create_user

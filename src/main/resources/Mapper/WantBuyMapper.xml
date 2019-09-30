@@ -7,11 +7,26 @@
     update want_buy set is_sell = 1 where id = #{id}
   </update>
 
-  <select id="getUserWantBuy" parameterType="map" resultType="map">
-    select want_buy.*,shoe.*
-    from want_buy,shoe
-    where create_user=#{userId} and want_buy.shoe_id=shoe.id
-
+  <select id="getUserWantBuy" resultType="map" parameterType="map">
+      select shoe.*,want_buy.*
+      from shoe,want_buy
+      where shoe.id=want_buy.shoe_id and create_user=#{userId}
   </select>
+
+   <select id="getMinPrice" parameterType="map" resultType="map">
+       select min(price)as mip from want_buy
+       where shoe_id=#{shoeId} and `size`=#{shoeSize}
+   </select>
+
+    <select id="getMaxPrice" parameterType="map" resultType="map">
+       select max(price) as map from want_buy
+       where shoe_id=#{shoeId} and `size`=#{shoeSize}
+   </select>
+
+    <insert id="saveWantBuy" parameterType="map">
+        insert into want_buy(shoe_id,`size`,price,address,create_user) value
+        (#{shoeId},#{size},#{price},#{address},#{userId})
+
+    </insert>
 
 </mapper>
