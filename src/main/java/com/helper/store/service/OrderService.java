@@ -19,12 +19,42 @@ public interface OrderService {
      * @return
      */
     JsonMessage saveOrder(Map<String,Object> param);
+
+
+
     /**
      * 取消订单
      * @param param
      * @return
      */
     JsonMessage cancelOrder(Map<String, Object> param);
+
+    /**
+     * 取消订单还原鞋子订单
+     * @param param
+     * @return
+     */
+    JsonMessage restoreSell(Map<String,Object> param);
+
+    /**
+     * 生成订单鞋子卖出
+     * @param param
+     * @return
+     */
+    JsonMessage shoeSell(Map<String,Object> param);
+
+    /**
+     * 生成订单鞋子卖出2
+     * @param param
+     */
+    JsonMessage shoeSell2(Map<String,Object> param);
+
+    /**
+     * 取消订单还原鞋子订单2
+     * @param param
+     */
+    JsonMessage restoreSell2(Map<String,Object> param);
+
     /**
      * 立即付款
      * @param param

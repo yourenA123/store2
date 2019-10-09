@@ -96,5 +96,29 @@ public class WantBuyController {
         return result;
     }
 
+    /**
+     * 获取鞋子尺码
+     * @param request
+     * @return
+     */
+    @GetMapping("/selectSize")
+    public JsonMessage selectSize(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            List<Map<String,Object>> selectSize = wantBuyService.selectSize(param);
+            data.put("selectSize",selectSize);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+            result.setData(data);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+
+    }
+
 }
 

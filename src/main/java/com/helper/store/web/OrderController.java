@@ -37,6 +37,8 @@ public class OrderController {
         return orderService.saveOrder(param);
     }
 
+
+
     /**
      * 取消订单
      * @param request
@@ -47,6 +49,41 @@ public class OrderController {
         Map<String,Object> param = ParamsUtils.getParmas(request);
         return orderService.cancelOrder(param);
     }
+
+    /**
+     * 取消订单还原鞋子订单
+     * @param request
+     * @return
+     */
+    @PostMapping("/restoreSell")
+    public JsonMessage restoreSell(HttpServletRequest request){
+        Map<String,Object> param = ParamsUtils.getParmas(request);
+        return orderService.restoreSell(param);
+    }
+
+    /**
+     * 取消订单还原鞋子订单
+     * @param request
+     * @return
+     */
+    @PostMapping("/restoreSell2")
+    public JsonMessage restoreSellBulk(HttpServletRequest request){
+        Map<String,Object> param = ParamsUtils.getParmas(request);
+        return orderService.restoreSell2(param);
+    }
+
+    @PostMapping("/shoeSell")
+    public JsonMessage shoeSell(HttpServletRequest request){
+        Map<String,Object> param = ParamsUtils.getParmas(request);
+        return orderService.shoeSell(param);
+    }
+
+    @PostMapping("/shoeSell2")
+    public JsonMessage shoeSell2(HttpServletRequest request){
+        Map<String,Object> param = ParamsUtils.getParmas(request);
+        return orderService.shoeSell2(param);
+    }
+
 
     /**
      * 立即付款

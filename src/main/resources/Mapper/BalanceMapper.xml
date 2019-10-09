@@ -6,11 +6,11 @@
         union all select
     </insert>
     
-    <select id="dealInfo" parameterType="map">
+    <insert id="dealInfo" parameterType="map">
 
 
 
-    </select>
+    </insert>
 
 
 

@@ -33,13 +33,8 @@
 
 
     <select id="selectShoe" resultType="map">
-      SELECT
-        DISTINCT g.price,g.create_user,
-          s.*
-      FROM
-          shoe s
-      LEFT JOIN goods g ON s.id = g.shoe_id
-      LEFT JOIN user u ON u.id = g.create_user
+     select *,(select MIN(price) as mip from goods where goods.is_sell!=1 and goods.shoe_id=shoe.id) as price from shoe
+
     </select>
     <!-- 销量排序 -->
     <select id="selectShoeByNum" resultType="map">

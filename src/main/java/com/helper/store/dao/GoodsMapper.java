@@ -56,4 +56,6 @@ public interface GoodsMapper {
      * @return
      */
     Map<String,Object> getMaxPrice(Map<String,Object>param);
+
+
 }

@@ -14,17 +14,9 @@
   </resultMap>
 
     <select id="selectSize" resultType="map">
-        SELECT
-            goods.gs_id,
-            goods.shoe_id as shoeId,
-            goods.size,
-            goods.price,
-            goods.is_sell
-        FROM
-            goods
-        LEFT JOIN shoe ON goods.shoe_id = shoe.id
-        WHERE
-            goods.shoe_id = #{shoeId}
+        select * from (select price,`size`,gs_id,create_user from goods where shoe_id=#{shoeId} and is_sell=0
+        GROUP BY `size`,price)r
+        group by `size`
   </select>
 
     <!-- 根据shoeId查找鞋信息 -->
@@ -80,5 +72,8 @@
        select max(price) as map from goods
        where shoe_id=#{shoeId} and `size`=#{shoeSize}
    </select>
+
+
+
 
 </mapper>

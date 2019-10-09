@@ -68,5 +68,11 @@ public class WantBuyServiceImpl implements WantBuyService {
        wantBuyMapper.saveWantBuy(param);
     }
 
+    @Override
+    public List<Map<String, Object>> selectSize(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return wantBuyMapper.selectSize(param);
+    }
+
 
 }

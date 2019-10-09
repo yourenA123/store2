@@ -1,5 +1,6 @@
 package com.helper.store.service.impl;
 
+import com.helper.store.dao.BalanceMapper;
 import com.helper.store.dao.OrderMapper;
 import com.helper.store.domain.JsonMessage;
 import com.helper.store.service.OrderService;
@@ -24,6 +25,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderMapper orderMapper;
+    BalanceMapper balanceMapper;
+
     @Override
     public JsonMessage saveOrder(Map<String, Object> param) {
         JsonMessage jsonMessage = new JsonMessage();
@@ -33,8 +36,9 @@ public class OrderServiceImpl implements OrderService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             param.put("createTime",sdf.format(new Date()));
             param.put("status",0);
-            ParamsUtils.getUser("buyUserId",param);
             orderMapper.saveOrder(param);
+            orderMapper.shoeSell(param);
+            orderMapper.shoeSell2(param);
             Map<String,Object> map = orderMapper.getOrderByNo(param);
             jsonMessage.setResponseCode(Constants.RES_CODE_0);
             jsonMessage.setErrorMessage(Constants.RES_MESSAGE_0);
@@ -48,12 +52,72 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+
     @Override
     public JsonMessage cancelOrder(Map<String, Object> param) {
 
         JsonMessage result = new JsonMessage();
         try {
             orderMapper.cancelOrder(param);
+            orderMapper.restoreSell(param);
+            orderMapper.restoreSell2(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e) {
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    @Override
+    public JsonMessage restoreSell(Map<String,Object> param){
+        JsonMessage result = new JsonMessage();
+        try {
+            orderMapper.restoreSell(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e) {
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+
+    }
+
+    @Override
+    public JsonMessage shoeSell(Map<String, Object> param) {
+        JsonMessage result = new JsonMessage();
+        try {
+            orderMapper.shoeSell(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e) {
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    @Override
+    public JsonMessage shoeSell2(Map<String, Object> param) {
+        JsonMessage result = new JsonMessage();
+        try {
+            orderMapper.shoeSell2(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e) {
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    @Override
+    public JsonMessage restoreSell2(Map<String, Object> param) {
+        JsonMessage result = new JsonMessage();
+        try {
+            orderMapper.restoreSell2(param);
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e) {

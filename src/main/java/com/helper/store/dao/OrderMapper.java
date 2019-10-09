@@ -23,12 +23,38 @@ public interface OrderMapper {
      */
     void saveOrder(Map<String,Object> param);
 
+
+
     /**
      * 取消订单
      * @param param
      * @return
      */
     void cancelOrder(Map<String, Object> param);
+
+    /**
+     * 取消订单还原鞋子订单
+     * @param param
+     */
+    void restoreSell(Map<String,Object> param);
+
+    /**
+     * 取消订单还原鞋子订单2
+     * @param param
+     */
+    void restoreSell2(Map<String,Object> param);
+
+    /**
+     * 生成订单鞋子卖出
+     * @param param
+     */
+    void shoeSell(Map<String,Object> param);
+
+    /**
+     * 生成订单鞋子卖出2
+     * @param param
+     */
+    void shoeSell2(Map<String,Object> param);
 
     /**
      * 立即付款

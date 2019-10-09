@@ -44,4 +44,11 @@ public interface WantBuyMapper {
      * @param param
      */
     void saveWantBuy(Map<String,Object> param);
+
+    /**
+     *查鞋子尺码
+     * @param param
+     * @return
+     */
+    List<Map<String,Object>> selectSize(Map<String,Object> param);
 }

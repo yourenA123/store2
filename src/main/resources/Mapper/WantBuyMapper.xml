@@ -4,7 +4,7 @@
 
 
   <update id="saveShoe" parameterType="com.helper.store.domain.WantBuy">
-    update want_buy set is_sell = 1 where id = #{id}
+    update want_buy set is_sell = 1 where want_id = #{id}
   </update>
 
   <select id="getUserWantBuy" resultType="map" parameterType="map">
@@ -24,9 +24,28 @@
    </select>
 
     <insert id="saveWantBuy" parameterType="map">
-        insert into want_buy(shoe_id,`size`,price,address,create_user) value
-        (#{shoeId},#{size},#{price},#{address},#{userId})
+        insert into want_buy(shoe_id,`size`,price,address_id,create_user) value
+        (#{shoeId},#{size},#{price},#{addressId},#{userId})
 
     </insert>
+
+    <select id="selectSize" parameterType="map" resultType="map">
+     select * from(select want_buy.price,
+       want_buy.want_id,
+               goods.size,
+               goods.gs_id,
+               goods.create_user as selluserid,
+               want_buy.create_user as buyuserid,
+               want_buy.address_id
+        from want_buy,goods
+        where want_buy.shoe_id=#{shoeId}
+          and want_buy.is_sell=0
+          and want_buy.size=goods.size
+          and goods.create_user=#{userId}
+          and goods.is_sell=0
+        GROUP BY `size`,price desc)r
+				GROUP BY `size`
+
+    </select>
 
 </mapper>
