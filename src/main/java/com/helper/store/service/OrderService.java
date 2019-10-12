@@ -34,7 +34,7 @@ public interface OrderService {
      * @param param
      * @return
      */
-    JsonMessage restoreSell(Map<String,Object> param);
+    void restoreSell(Map<String,Object> param);
 
     /**
      * 生成订单鞋子卖出
@@ -96,5 +96,55 @@ public interface OrderService {
      * @return
      */
     void orderFinish(Map<String,Object> param);
+
+    /**
+     * 修改卖家余额
+     * @param param
+     */
+    void sellUserBalance(Map<String,Object> param);
+
+    /**
+     * 修改买家余额
+     * @param param
+     */
+    void buyUserBalance(Map<String,Object> param);
+
+    /**
+     * 生成买家余额明细
+     * @param param
+     * @return
+     */
+    void saveBuyUser(Map<String,Object> param);
+
+    /**
+     * 生成卖家余额明细
+     * @param param
+     * @return
+     */
+    void saveSellUser(Map<String,Object> param);
+
+    /**
+     * 保存通知
+     * @param param
+     */
+    void saveNotice(Map<String,Object> param);
+
+    /**
+     * 查找通知
+     * @param param
+     */
+    Map<String,Object> selectNoticeBuy(Map<String,Object> param);
+
+    /**
+     * 查找通知
+     * @param param
+     */
+    Map<String,Object> selectNoticeSell(Map<String,Object> param);
+
+    /**
+     * 修改通知已读状态
+     * @param param
+     */
+    void updateNotice(Map<String,Object>param);
 
 }

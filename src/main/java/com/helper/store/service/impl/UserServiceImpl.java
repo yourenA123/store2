@@ -51,11 +51,10 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserInfo(param);
     }
 
-
     @Override
-    public List<Map<String,Object>> getBalanceByUser(Map<String, Object> param) {
+    public void charge(Map<String, Object> param) {
         ParamsUtils.getUser("userId",param);
-        return userDao.getBalanceByUser(param);
+         userDao.charge(param);
     }
 
 

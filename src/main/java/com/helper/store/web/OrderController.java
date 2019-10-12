@@ -50,16 +50,6 @@ public class OrderController {
         return orderService.cancelOrder(param);
     }
 
-    /**
-     * 取消订单还原鞋子订单
-     * @param request
-     * @return
-     */
-    @PostMapping("/restoreSell")
-    public JsonMessage restoreSell(HttpServletRequest request){
-        Map<String,Object> param = ParamsUtils.getParmas(request);
-        return orderService.restoreSell(param);
-    }
 
     /**
      * 取消订单还原鞋子订单
@@ -191,5 +181,56 @@ public class OrderController {
             result.setErrorMessage(Constants.RES_MESSAGE_101);
         }
         return result;
+    }
+
+    @PostMapping("/sellUserBalance")
+    public void sellUserBalance(HttpServletRequest request){
+        Map<String,Object> param = ParamsUtils.getParmas(request);
+         orderService.sellUserBalance(param);
+    }
+
+    @PostMapping("/buyUserBalance")
+    public void buyUserBalance(HttpServletRequest request){
+        Map<String,Object> param = ParamsUtils.getParmas(request);
+        orderService.buyUserBalance(param);
+    }
+
+    /**
+     * 通知消息
+     * @param request
+     * @return
+     */
+    @PostMapping("selectNotice")
+    public JsonMessage selectNotice(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            orderService.selectNoticeBuy(param);
+            orderService.selectNoticeSell(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    @PostMapping("updateRead")
+    public JsonMessage updateRead(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            orderService.updateNotice(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+
     }
 }

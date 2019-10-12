@@ -13,15 +13,15 @@
     </update>
 
     <update id="restoreSell" parameterType="map">
-        update goods
+         update goods
           set is_sell=0
-        where gs_id=#{gsId}
+        where gs_id=(select `order`.gs_id from `order` where `order`.order_id=#{orderId})
     </update>
 
     <update id="restoreSell2" parameterType="map">
         update want_buy
          set is_sell=0
-         where want_id=#{wantId}
+         where want_id=(select want_buy.gs_id from want_buy where want_buy.want_id=#{wantId})
 
     </update>
 
@@ -100,6 +100,48 @@
           set status=3
           where
            order_id=#{orderId}
+    </update>
+
+    <update id="sellUserBalance" parameterType="map">
+         UPDATE `user`
+      set `user`.balance=`user`.balance+(select price from goods where goods.gs_id=#{gsId})
+        where `user`.id=#{sellUserId}
+    </update>
+
+    <update id="buyUserBalance" parameterType="map">
+        UPDATE `user`
+      set `user`.balance=`user`.balance-(select price from goods where goods.gs_id=#{gsId})
+        where `user`.id=#{buyUserId}
+    </update>
+
+    <insert id="saveBuyUser" parameterType="map">
+        insert into withdrawalrecord(user_id,create_time,minus) value (#{buyUserId},now(),#{price})
+    </insert>
+
+    <insert id="saveSellUser" parameterType="map">
+        insert into withdrawalrecord(user_id,create_time,`add`) value (#{sellUserId},now(),#{price})
+    </insert>
+
+    <insert id="saveNotice" parameterType="map">
+        insert into notice(order_id,notice_information,create_time) value (#{orderId},#{noticeInformation},now())
+    </insert>
+
+    <select id="selectNoticeBuy" parameterType="map" resultType="map">
+       SELECT `order`.*,notice.create_time,notice_information from `order`,notice
+       where notice.`read`=0 and `order`.order_id=notice.order_id and `order`.buy_user_id=#{userId}
+       order by notice.notice_id desc
+    </select>
+
+    <select id="selectNoticeSell" parameterType="map" resultType="map">
+       SELECT `order`.*,notice.create_time,notice_information from `order`,notice
+       where notice.`read`=0 and `order`.order_id=notice.order_id and `order`.sell_user_id=#{userId}
+       order by notice.notice_id desc
+    </select>
+
+    <update id="updateRead" parameterType="map">
+        update notice
+        set `read`=1
+        where notice_id=#{noticeId}
     </update>
 
 

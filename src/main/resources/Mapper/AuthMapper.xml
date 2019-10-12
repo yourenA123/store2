@@ -16,6 +16,7 @@
         <result property="address_id" column="addressId" jdbcType="INTEGER"/>
         <result property="invitation_code" column="invitationCode" jdbcType="VARCHAR"/>
         <result property="is_invitation" column="isInvitation" jdbcType="INTEGER"/>
+
     </resultMap>
 
     <select id="countPhone" parameterType="String" resultType="int">

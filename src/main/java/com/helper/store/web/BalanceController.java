@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,9 +24,23 @@ public class BalanceController {
     @Autowired
     BalanceService balanceService;
 
-    @PostMapping("/saveBalance")
-    public JsonMessage saveBalance(HttpServletRequest request) {
-        Map<String,Object> param = ParamsUtils.getParmas(request);
-        return balanceService.saveBalance(param);
+    @PostMapping("/getBalanceInfo")
+    public JsonMessage getBalanceInfo(HttpServletRequest request){
+        JsonMessage result=new JsonMessage();
+        Map<String, Object> data=new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            List<Map<String, Object>> balanceInfo = balanceService.getBalanceInfo(param);
+            data.put("balanceInfo",balanceInfo);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+            result.setData(data);
+        }catch (Exception e){
+            result.setData(data);
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+
     }
 }

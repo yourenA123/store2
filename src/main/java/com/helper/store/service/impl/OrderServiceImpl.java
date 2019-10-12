@@ -25,7 +25,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderMapper orderMapper;
-    BalanceMapper balanceMapper;
 
     @Override
     public JsonMessage saveOrder(Map<String, Object> param) {
@@ -39,6 +38,10 @@ public class OrderServiceImpl implements OrderService {
             orderMapper.saveOrder(param);
             orderMapper.shoeSell(param);
             orderMapper.shoeSell2(param);
+            orderMapper.saveBuyUser(param);
+            orderMapper.saveSellUser(param);
+            orderMapper.buyUserBalance(param);
+
             Map<String,Object> map = orderMapper.getOrderByNo(param);
             jsonMessage.setResponseCode(Constants.RES_CODE_0);
             jsonMessage.setErrorMessage(Constants.RES_MESSAGE_0);
@@ -71,17 +74,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public JsonMessage restoreSell(Map<String,Object> param){
-        JsonMessage result = new JsonMessage();
-        try {
-            orderMapper.restoreSell(param);
-            result.setResponseCode(Constants.RES_CODE_0);
-            result.setErrorMessage(Constants.RES_MESSAGE_0);
-        }catch (Exception e) {
-            result.setResponseCode(Constants.RES_CODE_101);
-            result.setErrorMessage(Constants.RES_MESSAGE_101);
-        }
-        return result;
+    public void restoreSell(Map<String,Object> param){
+       orderMapper.restoreSell(param);
 
     }
 
@@ -132,6 +126,7 @@ public class OrderServiceImpl implements OrderService {
         JsonMessage result = new JsonMessage();
         try {
             orderMapper.payOrder(param);
+            orderMapper.saveNotice(param);
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e) {
@@ -178,6 +173,49 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void orderFinish(Map<String, Object> param) {
         orderMapper.orderFinish(param);
+        orderMapper.sellUserBalance(param);
     }
+
+    @Override
+    public void sellUserBalance(Map<String, Object> param) {
+        orderMapper.sellUserBalance(param);
+    }
+
+    @Override
+    public void buyUserBalance(Map<String, Object> param) {
+        orderMapper.buyUserBalance(param);
+    }
+
+    @Override
+    public void saveBuyUser(Map<String, Object> param) {
+        orderMapper.saveBuyUser(param);
+    }
+
+    @Override
+    public void saveSellUser(Map<String, Object> param) {
+        orderMapper.saveSellUser(param);
+    }
+
+    @Override
+    public void saveNotice(Map<String, Object> param) {
+        orderMapper.saveNotice(param);
+    }
+
+
+    @Override
+    public Map<String,Object> selectNoticeSell(Map<String, Object> param) {
+       return orderMapper.selectNoticeSell(param);
+    }
+
+    @Override
+    public void updateNotice(Map<String, Object> param) {
+        orderMapper.updateNotice(param);
+    }
+
+    @Override
+    public Map<String,Object> selectNoticeBuy(Map<String, Object> param) {
+       return orderMapper.selectNoticeBuy(param);
+    }
+
 
 }

@@ -50,12 +50,6 @@ public interface UserDao {
     Map<String,Object> getUserInfo(Map<String,Object> param);
 
 
-    /**
-     * 获取用户余额
-     * @param param
-     * @return
-     */
-    List<Map<String,Object>> getBalanceByUser(Map<String,Object> param);
 
     /**
      *绑定用户支付宝
@@ -63,6 +57,11 @@ public interface UserDao {
      */
     void updateUserAliPay(Map<String,Object> param);
 
+    /**
+     * 用户充值
+     * @param param
+     */
+    void charge(Map<String,Object> param);
 
     /**
      * 用户提现

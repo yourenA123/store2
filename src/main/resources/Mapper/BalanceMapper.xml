@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.helper.store.dao.BalanceMapper">
-    <insert id="saveBalance" parameterType="map">
-        insert into withdrawalrecord(user_id,create_time,balance,`add`) select #{userId},#{createTime},#{balance},#{add}
-        union all select
-    </insert>
-    
-    <insert id="dealInfo" parameterType="map">
+   <select id="getBalanceInfo" parameterType="map" resultType="map">
+        select withdrawalrecord.*,`user`.balance from withdrawalrecord,`user` where user_id=#{userId} and id=user_id
+        order by create_time desc
 
+   </select>
 
-
-    </insert>
 
 
 

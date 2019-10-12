@@ -147,33 +147,6 @@ public class UserController {
         return result;
     }
 
-
-    /**
-     * 获取用户余额
-     * @param request
-     * @return
-     */
-    @GetMapping("/getBalanceByUser")
-    public JsonMessage getBalanceByUser(HttpServletRequest request){
-        JsonMessage result = new JsonMessage();
-        Map<String, Object> data = new HashMap<String, Object>(16);
-        Map<String, Object> param = ParamsUtils.getParmas(request);
-        try {
-            List<Map<String,Object>> userBalance = userService.getBalanceByUser(param);
-            data.put("userBalance", userBalance);
-            result.setResponseCode(Constants.RES_CODE_0);
-            result.setErrorMessage(Constants.RES_MESSAGE_0);
-            result.setData(data);
-        }catch (Exception e){
-            result.setResponseCode(Constants.RES_CODE_101);
-            result.setErrorMessage(Constants.RES_MESSAGE_101);
-        }
-        return result;
-
-
-    }
-
-
     /**
      *绑定用户支付宝
      * @param request
@@ -189,6 +162,28 @@ public class UserController {
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    /**
+     * 用户充值
+     * @param request
+     * @return
+     */
+    @PostMapping("/charge")
+    public JsonMessage charge(HttpServletRequest request) {
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+
+            userService.charge(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        } catch (Exception e) {
             result.setResponseCode(Constants.RES_CODE_101);
             result.setErrorMessage(Constants.RES_MESSAGE_101);
         }

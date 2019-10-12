@@ -46,11 +46,10 @@ public interface UserService {
     Map<String,Object> getUserInfo(Map<String,Object> param);
 
     /**
-     * 获取用户余额
+     * 用户充值
      * @param param
-     * @return
      */
-    List<Map<String,Object>> getBalanceByUser(Map<String,Object> param);
+    void charge(Map<String,Object> param);
 
     /**
      *绑定用户支付宝

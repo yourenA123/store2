@@ -47,32 +47,20 @@
         WHERE
             id = #{userId}
     </update>
-
-    <select id="getBalanceByUser" parameterType="map" resultType="map">
-        SELECT
-            `user`.balance,
-            withdrawalrecord.*,
-            `user`.user_AliPay,
-            `user`.phone
-        FROM
-            `user`,withdrawalrecord
-        WHERE
-            `user`.id = #{userId} and `user`.id=withdrawalrecord.user_id
-        GROUP by withdrawalrecord.creat_time desc
-    </select>
-
-    <update id="updateUserBalance" parameterType="map">
-        UPDATE `user`
-            SET balance = #{balance}
-        WHERE
-            id = #{userId}
-    </update>
+    
 
     <update id="updateUserAliPay" parameterType="map">
         UPDATE `user`
             SET user_aliPay = #{userAliPay}
         WHERE
             id = #{userId}
+    </update>
+    
+    <update id="charge" parameterType="map">
+        update `user`
+         set balance=balance+#{balance}
+         where id=#{userId}
+
     </update>
 
     <update id="withdrawal" parameterType="map">
@@ -82,7 +70,7 @@
     </update>
 
     <insert id="saveWithdrawalrecord" parameterType="map">
-        insert into withdrawalrecord(user_id,creat_time,balance) value (#{userId},now(),#{balance})
+        insert into withdrawalrecord(user_id,create_time,withdrawal) value (#{userId},now(),#{balance})
     </insert>
 
 </mapper>

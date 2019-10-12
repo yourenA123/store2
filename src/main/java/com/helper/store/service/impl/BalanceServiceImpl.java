@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -19,21 +20,8 @@ public class BalanceServiceImpl implements BalanceService {
 
 
     @Override
-    public JsonMessage saveBalance(Map<String, Object> param) {
-        JsonMessage jsonMessage = new JsonMessage();
-        try {
-            param.put("sum",param);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            param.put("createTime",sdf.format(new Date()));
-            ParamsUtils.getUser("userId",param);
-            balanceMapper.saveBalance(param);
-            jsonMessage.setResponseCode(Constants.RES_CODE_0);
-            jsonMessage.setErrorMessage(Constants.RES_MESSAGE_0);
-        }catch (Exception e){
-            e.printStackTrace();
-            jsonMessage.setResponseCode(Constants.RES_CODE_101);
-            jsonMessage.setErrorMessage(Constants.RES_MESSAGE_101);
-        }
-        return jsonMessage;
+    public List<Map<String, Object>> getBalanceInfo(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return balanceMapper.getBalanceInfo(param);
     }
 }
