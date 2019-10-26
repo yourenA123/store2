@@ -12,20 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 
 /**
  * @author yanghao
- * @create 2019-07-02 15:51
- * @Description:
  */
 @RestController
 @RequestMapping(value = "/wantBuy")
 public class WantBuyController {
     @Autowired
     WantBuyService wantBuyService;
+
     /**
      * 出售
-     * @return
      */
     @PostMapping("/saveShoe")
     public JsonMessage saveShoe(Integer id){

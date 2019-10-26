@@ -1,14 +1,17 @@
 package com.helper.store.web;
 
+import com.alipay.api.java_websocket.WebSocket;
 import com.helper.store.domain.JsonMessage;
 import com.helper.store.service.OrderService;
 import com.helper.store.util.Constants;
 import com.helper.store.util.ParamsUtils;
+import com.helper.store.websocket.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.socket.WebSocketMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -17,8 +20,6 @@ import java.util.Map;
 
 /**
  * @author yanghao
- * @create 2019-08-08 16:22
- * @Description:
  */
 @RestController
 @RequestMapping("/order")
@@ -26,6 +27,8 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
+    WebSocketServer webSocketServer;
+
     /**
      * 生成订单
      * @param request
@@ -36,7 +39,6 @@ public class OrderController {
         Map<String,Object> param = ParamsUtils.getParmas(request);
         return orderService.saveOrder(param);
     }
-
 
 
     /**
@@ -62,12 +64,22 @@ public class OrderController {
         return orderService.restoreSell2(param);
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("/shoeSell")
     public JsonMessage shoeSell(HttpServletRequest request){
         Map<String,Object> param = ParamsUtils.getParmas(request);
         return orderService.shoeSell(param);
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("/shoeSell2")
     public JsonMessage shoeSell2(HttpServletRequest request){
         Map<String,Object> param = ParamsUtils.getParmas(request);
@@ -85,6 +97,7 @@ public class OrderController {
         Map<String,Object> param = ParamsUtils.getParmas(request);
         return orderService.payOrder(param);
     }
+
     /**
      * 填写快递订单号
      * @param request
@@ -97,6 +110,7 @@ public class OrderController {
         Map<String, Object> param = ParamsUtils.getParmas(request);
         try {
             orderService.inputTrackingNumber(param);
+            webSocketServer.sendMessage("快递号以填写");
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e){
@@ -105,8 +119,9 @@ public class OrderController {
         }
         return result;
     }
+
     /**
-     * 获取快递单号
+     * 获取快递订单号
      * @param request
      * @return
      */
@@ -127,6 +142,7 @@ public class OrderController {
         }
         return result;
     }
+
     /**
      * 根据buysellID获取订单信息
      * @param request
@@ -165,7 +181,8 @@ public class OrderController {
 
     /**
      * 确认收货
-     *
+     * @param request
+     * @return
      */
     @PostMapping("/orderFinish")
     public JsonMessage orderFinish(HttpServletRequest request){
@@ -174,6 +191,7 @@ public class OrderController {
         Map<String, Object> param = ParamsUtils.getParmas(request);
         try {
             orderService.orderFinish(param);
+
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e){
@@ -183,12 +201,20 @@ public class OrderController {
         return result;
     }
 
+    /**
+     *
+     * @param request
+     */
     @PostMapping("/sellUserBalance")
     public void sellUserBalance(HttpServletRequest request){
         Map<String,Object> param = ParamsUtils.getParmas(request);
          orderService.sellUserBalance(param);
     }
 
+    /**
+     *
+     * @param request
+     */
     @PostMapping("/buyUserBalance")
     public void buyUserBalance(HttpServletRequest request){
         Map<String,Object> param = ParamsUtils.getParmas(request);
@@ -217,6 +243,11 @@ public class OrderController {
         return result;
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("updateRead")
     public JsonMessage updateRead(HttpServletRequest request){
         JsonMessage result = new JsonMessage();

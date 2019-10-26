@@ -6,6 +6,7 @@ import com.helper.store.domain.JsonMessage;
 import com.helper.store.service.OrderService;
 import com.helper.store.util.Constants;
 import com.helper.store.util.ParamsUtils;
+import com.helper.store.websocket.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderMapper orderMapper;
+    @Autowired
+    WebSocketServer webSocketServer;
 
     @Override
     public JsonMessage saveOrder(Map<String, Object> param) {
@@ -41,7 +44,6 @@ public class OrderServiceImpl implements OrderService {
             orderMapper.saveBuyUser(param);
             orderMapper.saveSellUser(param);
             orderMapper.buyUserBalance(param);
-
             Map<String,Object> map = orderMapper.getOrderByNo(param);
             jsonMessage.setResponseCode(Constants.RES_CODE_0);
             jsonMessage.setErrorMessage(Constants.RES_MESSAGE_0);

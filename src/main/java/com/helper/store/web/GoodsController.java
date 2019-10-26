@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.socket.WebSocketSession;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -29,7 +30,7 @@ public class GoodsController {
     GoodsService goodsService;
 
     /**
-     * 所有尺码
+     * 查找鞋子
      * @param shoeId
      * @return
      */
@@ -39,7 +40,7 @@ public class GoodsController {
     }
 
     /**
-     * 查找鞋子信息
+     *
      * @param shoeId
      * @return
      */
@@ -49,7 +50,7 @@ public class GoodsController {
     }
 
     /**
-     * 查找交易记录
+     *
      * @param shoeId
      * @return
      */
@@ -59,7 +60,7 @@ public class GoodsController {
     }
 
     /**
-     * 获取用户正在出售的鞋子信息
+     *
      * @param request
      * @return
      */
@@ -93,6 +94,7 @@ public class GoodsController {
         Map<String, Object> param = ParamsUtils.getParmas(request);
         try {
             goodsService.sellingShoes(param);
+
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e){
