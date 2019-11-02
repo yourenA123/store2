@@ -74,4 +74,17 @@ public interface UserDao {
      * @param param
      */
     void saveWithdrawalrecord(Map<String,Object> param);
+
+    /**
+     * 增加用户邀请积分
+     * @param param
+     */
+    void addIntegral(Map<String,Object> param);
+
+    /**
+     * 验证邀请码
+     * @param param
+     * @return
+     */
+    Map<String,Object> selectInvitationCode(Map<String,Object> param);
 }

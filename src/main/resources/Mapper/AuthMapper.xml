@@ -21,21 +21,21 @@
 
     <select id="countPhone" parameterType="String" resultType="int">
         SELECT COUNT(*)
-        FROM user
-        WHERE phone = #{phone};
+        FROM `user`
+        WHERE phone = #{phone}
     </select>
 
     <insert id="saveUser" parameterType="map">
         INSERT INTO `user` ( phone, `password`, `name`, card_front, card_reverse,store_name, store_address, other_img, invitation_code, is_invitation,nickname )
         VALUES
-            ( #{phone}, #{password}, #{name}, #{card_front}, #{card_reverse},#{store_name},#{store_address}, #{other_img}, #{invitation_code}, 0 ,#{nickname})
+            ( #{phone}, #{password}, #{name}, #{card_front}, #{card_reverse},#{store_name},#{store_address}, #{other_img}, #{invitationCode}, 0 ,#{nickName})
     </insert>
 
     <select id="getUserByUserName" resultMap="User" parameterType="map">
         SELECT
           *
         FROM
-          user
+          `user`
         WHERE
           phone = #{account}
     </select>

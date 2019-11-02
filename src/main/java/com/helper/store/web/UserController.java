@@ -234,4 +234,50 @@ public class UserController {
 
     }
 
+
+    /**
+     * 增加用户邀请积分
+     * @param request
+     */
+    @PostMapping("/addIntegral")
+    public JsonMessage addIntegral(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            userService.addIntegral(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    /**
+     * 查找用户邀请码
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/selectInvitationCode")
+    public JsonMessage selectInvitationCode(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            Map<String,Object> invitationCode = userService.selectInvitationCode(param);
+            data.put("invitationCode", invitationCode);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+            result.setData(data);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+
+
 }

@@ -1,7 +1,6 @@
 package com.helper.store.service;
 
 import com.helper.store.domain.JsonMessage;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -146,5 +145,36 @@ public interface OrderService {
      * @param param
      */
     void updateNotice(Map<String,Object>param);
+
+    /**
+     * 通过手机号查找用户
+     * @param param
+     */
+    Map<String,Object> selectUserInfo(Map<String,Object>param);
+
+    /**
+     * 修改转让订单价格
+     * @param param
+     */
+    void updatePrice(Map<String,Object>param);
+
+    /**
+     * 转让订单
+     * @param param
+     */
+    void updateOrderBuyUserId(Map<String,Object>param);
+
+    /**
+     * 取消订单还原价格
+     * @param param
+     */
+    JsonMessage cancePrice(Map<String,Object>param);
+
+
+    /**
+     * 取消订单还原买家卖家和价格
+     * @param param
+     */
+    JsonMessage canceOrderBuyUserId(Map<String,Object>param);
 
 }

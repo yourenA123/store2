@@ -5,7 +5,7 @@ import com.helper.store.domain.JsonMessage;
 import com.helper.store.service.OrderService;
 import com.helper.store.util.Constants;
 import com.helper.store.util.ParamsUtils;
-import com.helper.store.websocket.WebSocketServer;
+//import com.helper.store.websocket.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +27,7 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
-    WebSocketServer webSocketServer;
+
 
     /**
      * 生成订单
@@ -110,7 +110,6 @@ public class OrderController {
         Map<String, Object> param = ParamsUtils.getParmas(request);
         try {
             orderService.inputTrackingNumber(param);
-            webSocketServer.sendMessage("快递号以填写");
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e){
@@ -264,4 +263,94 @@ public class OrderController {
         return result;
 
     }
+
+    /**
+     * 查找转让订单用户信息
+     * @param request
+     * @return
+     */
+    @PostMapping("/selectUserInfo")
+    public JsonMessage selectUserInfo(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            Map<String,Object> UserInfo = orderService.selectUserInfo(param);
+            data.put("UserInfo", UserInfo);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+            result.setData(data);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    /**
+     * 更新转让订单价格
+     * @param request
+     * @return
+     */
+    @PostMapping("updatePrice")
+    public JsonMessage updatePrice(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            orderService.updatePrice(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+
+    }
+
+    /**
+     * 更新转让订单的信息
+     * @param request
+     * @return
+     */
+    @PostMapping("updateOrderBuyUserId")
+    public JsonMessage updateOrderBuyUserId(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            orderService.updateOrderBuyUserId(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e){
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+
+    }
+
+    /**
+     * 取消订单还原鞋子订单
+     * @param request
+     * @return
+     */
+    @PostMapping("/cancePrice")
+    public JsonMessage cancePrice(HttpServletRequest request){
+        Map<String,Object> param = ParamsUtils.getParmas(request);
+        return orderService.cancePrice(param);
+    }
+
+    /**
+     * 取消订单还原买家卖家和价格
+     * @param request
+     * @return
+     */
+    @PostMapping("/canceOrderBuyUserId")
+    public JsonMessage canceOrderBuyUserId(HttpServletRequest request){
+        Map<String,Object> param = ParamsUtils.getParmas(request);
+        return orderService.canceOrderBuyUserId(param);
+    }
+
 }

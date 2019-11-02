@@ -1,18 +1,16 @@
 package com.helper.store.service.impl;
 
-import com.helper.store.dao.BalanceMapper;
 import com.helper.store.dao.OrderMapper;
 import com.helper.store.domain.JsonMessage;
 import com.helper.store.service.OrderService;
 import com.helper.store.util.Constants;
 import com.helper.store.util.ParamsUtils;
-import com.helper.store.websocket.WebSocketServer;
+//import com.helper.store.websocket.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +24,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderMapper orderMapper;
-    @Autowired
-    WebSocketServer webSocketServer;
+
 
     @Override
     public JsonMessage saveOrder(Map<String, Object> param) {
@@ -66,6 +63,7 @@ public class OrderServiceImpl implements OrderService {
             orderMapper.cancelOrder(param);
             orderMapper.restoreSell(param);
             orderMapper.restoreSell2(param);
+            orderMapper.cancePrice(param);
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e) {
@@ -129,6 +127,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             orderMapper.payOrder(param);
             orderMapper.saveNotice(param);
+            orderMapper.updatePrice(param);
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e) {
@@ -212,6 +211,49 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void updateNotice(Map<String, Object> param) {
         orderMapper.updateNotice(param);
+    }
+
+    @Override
+    public Map<String,Object> selectUserInfo(Map<String, Object> param) {
+       return orderMapper.selectUserInfo(param);
+    }
+
+    @Override
+    public void updatePrice(Map<String, Object> param) {
+        orderMapper.updatePrice(param);
+    }
+
+    @Override
+    public void updateOrderBuyUserId(Map<String, Object> param) {
+        orderMapper.updateOrderBuyUserId(param);
+    }
+
+    @Override
+    public JsonMessage cancePrice(Map<String, Object> param) {
+        JsonMessage result = new JsonMessage();
+        try {
+            orderMapper.cancePrice(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e) {
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+    @Override
+    public JsonMessage canceOrderBuyUserId(Map<String, Object> param) {
+        JsonMessage result = new JsonMessage();
+        try {
+            orderMapper.canceOrderBuyUserId(param);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+        }catch (Exception e) {
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
     }
 
     @Override

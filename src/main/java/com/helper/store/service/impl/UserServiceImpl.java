@@ -76,4 +76,21 @@ public class UserServiceImpl implements UserService {
         ParamsUtils.getUser("userId",param);
         userDao.saveWithdrawalrecord(param);
     }
+
+    @Override
+    public void addIntegral(Map<String, Object> param) {
+        userDao.addIntegral(param);
+    }
+
+    /**
+     * 查找邀请码
+     * @param param
+     * @return
+     */
+    @Override
+    public Map<String, Object> selectInvitationCode(Map<String, Object> param) {
+        return userDao.selectInvitationCode(param);
+    }
+
+
 }

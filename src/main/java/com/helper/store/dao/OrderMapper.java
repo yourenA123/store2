@@ -154,4 +154,35 @@ public interface OrderMapper {
      */
     void updateNotice(Map<String,Object>param);
 
+
+    /**
+     * 通过手机号查找用户
+     * @param param
+     */
+    Map<String,Object> selectUserInfo(Map<String,Object>param);
+
+    /**
+     * 修改转让订单价格
+     * @param param
+     */
+    void updatePrice(Map<String,Object>param);
+
+    /**
+     * 转让订单
+     * @param param
+     */
+    void updateOrderBuyUserId(Map<String,Object>param);
+
+    /**
+     * 取消订单还原价格
+     * @param param
+     */
+    void cancePrice(Map<String,Object>param);
+
+    /**
+     * 取消订单还原买家卖家和价格
+     * @param param
+     */
+    void canceOrderBuyUserId(Map<String,Object>param);
+
 }

@@ -98,6 +98,8 @@ public class AuthController {
             String userCode = param.get("phone").toString();
             String password =param.get("password").toString();
             authService.saveUser(param);
+            authService.countPhone(userCode);
+            userService.selectInvitationCode(param);
             UsernamePasswordToken token = new UsernamePasswordToken(userCode, password);
             token.setRememberMe(true);
             subject.login(token);

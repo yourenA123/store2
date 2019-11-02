@@ -72,5 +72,17 @@
     <insert id="saveWithdrawalrecord" parameterType="map">
         insert into withdrawalrecord(user_id,create_time,withdrawal) value (#{userId},now(),#{balance})
     </insert>
+    
+    <update id="addIntegral" parameterType="map">
+        update `user`
+          set integral=integral+1
+          where invitation_code=#{invitationCode}
+
+    </update>
+    
+    <select id="selectInvitationCode" parameterType="map" resultType="map">
+        select `user`.id from `user` where invitation_code=#{invitationCode}
+    </select>
+
 
 </mapper>

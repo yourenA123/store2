@@ -76,7 +76,8 @@
             create_time,
             `status`,
             buy_user_id,
-            sell_user_id
+            sell_user_id,
+
         FROM
             order_bulk
         WHERE
