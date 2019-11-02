@@ -144,5 +144,38 @@
         where notice_id=#{noticeId}
     </update>
 
+    <update id="updateOrderBuyUserId" parameterType="map">
+        update `order`
+        set transferbuy_user_id=#{transferBuyUserId},transfersell_user_id=#{transferSellUserId},transferprice=#{transferprice}
+        where order_id=#{orderId}
+    </update>
+
+    <update id="canceOrderBuyUserId" parameterType="map">
+        update `order`
+        set transferbuy_user_id=0,transfersell_user_id=0,transferprice=0,status=5
+        where order_id=#{orderId}
+    </update>
+
+    <update id="updatePrice" parameterType="map">
+        update `order`
+        set price=transferprice,buy_user_id=transferbuy_user_id,sell_user_id=transfersell_user_id
+        where order_id=#{orderId}
+    </update>
+
+
+    <select id="selectUserInfo" parameterType="map" resultType="map">
+        SELECT nickname,phone,id from `user` where phone=#{phone}
+    </select>
+
+    <update id="cancePrice" parameterType="map">
+        update `order`
+        set transferprice=0
+        where order_id=#{orderId}
+    </update>
+
+
+
+
+
 
 </mapper>
