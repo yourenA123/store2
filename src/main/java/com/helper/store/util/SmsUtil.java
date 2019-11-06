@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.text.DecimalFormat;
+
 /**
  * @author sheamus
  * @date 2019.3.4
@@ -85,5 +87,16 @@ public class SmsUtil {
             vCode = vCode + (int)(Math.random() * 9);
         }
         return vCode;
+    }
+
+    /**
+     * 生成红包0-2之间的数
+     * @return
+     */
+    public  static  String rCode(){
+        double a=Math.random() * 1.9+0.1;
+        DecimalFormat df = new DecimalFormat( "0.0" );
+        String rCode=df.format( a );
+        return rCode;
     }
 }

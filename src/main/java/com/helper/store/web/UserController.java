@@ -278,6 +278,32 @@ public class UserController {
         return result;
     }
 
+    /**
+     * 积分换红包
+     * @param request
+     * @return
+     */
+    @PostMapping("/redPacket")
+    public JsonMessage redPacket(HttpServletRequest request){
+        JsonMessage result = new JsonMessage();
+        Map<String, Object> data = new HashMap<String, Object>(16);
+        Map<String, Object> param = ParamsUtils.getParmas(request);
+        try {
+            Map<String,Object> integral = userService.selectIntegral(data);
+            data.put("integral", integral);
+            Map<String, Object> money = userService.redPacket(data);
+            result.setResponseCode(Constants.RES_CODE_0);
+            result.setErrorMessage(Constants.RES_MESSAGE_0);
+            result.setData(data);
+        }catch (Exception e){
+            result.setData(data);
+            result.setResponseCode(Constants.RES_CODE_101);
+            result.setErrorMessage(Constants.RES_MESSAGE_101);
+        }
+        return result;
+    }
+
+
 
 
 }

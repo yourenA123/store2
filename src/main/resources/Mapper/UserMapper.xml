@@ -74,14 +74,28 @@
     </insert>
     
     <update id="addIntegral" parameterType="map">
-        update `user`
+          update `user`
           set integral=integral+1
-          where invitation_code=#{invitationCode}
-
+					where invitation_code=#{inviterInvitationCode}
     </update>
     
     <select id="selectInvitationCode" parameterType="map" resultType="map">
-        select `user`.id from `user` where invitation_code=#{invitationCode}
+        select COUNT(*) from `user` where invitation_code=#{inviterInvitationCode}
+    </select>
+    
+    <update id="redPacket" parameterType="map">
+       update `user` 
+       set
+          balance = balance+#{money}
+         ,integral=integral-1
+        where id=#{userId} and integral>0
+    </update>
+    
+    <select id="selectIntegral" parameterType="map" resultType="map">
+        select
+        integral
+        from `user`
+        where id=#{userId}
     </select>
 
 

@@ -1,8 +1,5 @@
 package com.helper.store.service;
 
-import com.helper.store.domain.User;
-
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -83,6 +80,19 @@ public interface UserService {
      * @return
      */
     Map<String,Object> selectInvitationCode(Map<String,Object> param);
+
+    /**
+     * 积分换红包
+     * @param param
+     */
+    Map<String, Object> redPacket(Map<String,Object> param);
+
+    /**
+     * 查看积分
+     * @param param
+     * @return
+     */
+    Map<String,Object> selectIntegral(Map<String,Object> param);
 
 
 

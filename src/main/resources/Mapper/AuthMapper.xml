@@ -26,9 +26,9 @@
     </select>
 
     <insert id="saveUser" parameterType="map">
-        INSERT INTO `user` ( phone, `password`, `name`, card_front, card_reverse,store_name, store_address, other_img, invitation_code, is_invitation,nickname )
+        INSERT INTO `user` ( phone, `password`, `name`, card_front, card_reverse,store_name, store_address, invitation_code, is_invitation, nickname, inviter_invitation_code)
         VALUES
-            ( #{phone}, #{password}, #{name}, #{card_front}, #{card_reverse},#{store_name},#{store_address}, #{other_img}, #{invitationCode}, 0 ,#{nickName})
+            ( #{phone}, #{password}, #{name}, #{card_front}, #{card_reverse}, #{store_name}, #{store_address}, #{invitationCode}, 0 ,#{nickName}, #{inviterInvitationCode})
     </insert>
 
     <select id="getUserByUserName" resultMap="User" parameterType="map">

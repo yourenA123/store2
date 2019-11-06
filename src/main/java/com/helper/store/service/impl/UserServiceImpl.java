@@ -4,12 +4,11 @@ package com.helper.store.service.impl;
 import com.helper.store.dao.UserDao;
 import com.helper.store.service.UserService;
 import com.helper.store.util.ParamsUtils;
+import com.helper.store.util.SmsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -90,6 +89,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, Object> selectInvitationCode(Map<String, Object> param) {
         return userDao.selectInvitationCode(param);
+    }
+
+    @Override
+    public Map<String, Object> redPacket(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        String money = SmsUtil.rCode();
+        param.put("money",money);
+        return userDao.redPacket(param);
+    }
+
+    @Override
+    public Map<String, Object> selectIntegral(Map<String, Object> param) {
+        ParamsUtils.getUser("userId",param);
+        return userDao.selectIntegral(param);
     }
 
 

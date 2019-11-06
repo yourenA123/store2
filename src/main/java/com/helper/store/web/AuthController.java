@@ -97,12 +97,15 @@ public class AuthController {
             Map<String, Object> param = ParamsUtils.getParmas(request);
             String userCode = param.get("phone").toString();
             String password =param.get("password").toString();
+            int a = authService.countPhone(userCode);
+            if(authService.countPhone(userCode) != 0){
+                //用户已存在
+                result.setResponseCode(Constants.RES_CODE_907);
+                result.setErrorMessage(Constants.RES_MESSAGE_907);
+                return result;
+            }
             authService.saveUser(param);
-            authService.countPhone(userCode);
-            userService.selectInvitationCode(param);
-            UsernamePasswordToken token = new UsernamePasswordToken(userCode, password);
-            token.setRememberMe(true);
-            subject.login(token);
+            userService.addIntegral(param);
             result.setResponseCode(Constants.RES_CODE_0);
             result.setErrorMessage(Constants.RES_MESSAGE_0);
         }catch (Exception e){
